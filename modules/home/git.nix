@@ -1,11 +1,14 @@
 { ... }:
+let
+  secrets = import ../../secrets.nix;
+in
 {
   programs.git = {
     enable = true;
     settings = {
       user = {
         name = "Arthur Wallendorff";
-        email = "REDACTED";
+        email = secrets.personalEmail;
       };
       core.editor = "nvim";
       init.defaultBranch = "master";
@@ -16,7 +19,7 @@
         contents = {
           user = {
             name = "Arthur Wallendorff";
-            email = "REDACTED";
+            email = secrets.workEmail;
           };
         };
       }
