@@ -30,7 +30,7 @@
     usbutils
     imagemagick
     bluetuith
-    xclip
+    wl-clipboard
     lazydocker
   ];
 }

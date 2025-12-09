@@ -156,6 +156,7 @@
     fuzzel
 
     # GNOME (will move to gnome.nix)
+    xclip
     gnome-session
     xorg.xkill
   ];
