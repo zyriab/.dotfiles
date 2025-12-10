@@ -9,6 +9,7 @@
       nrbu = "nix flake update nixpkgs && nrb";
       ll = "ls -l";
       lr = "lazydocker";
+      cpwd = "pwd | wl-copy";
     };
 
     autosuggestion.enable = true;
