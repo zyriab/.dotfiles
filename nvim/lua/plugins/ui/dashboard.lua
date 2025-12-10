@@ -31,7 +31,7 @@ return {
         end
 
         local function nav_to_config()
-            local path = "~/.config/nvim"
+            local path = "~/.dotfiles/nvim"
             vim.cmd.cd(path)
             t_builtin.find_files({ cwd = path })
         end
