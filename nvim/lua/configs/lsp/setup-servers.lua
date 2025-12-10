@@ -13,7 +13,6 @@ local filetypes = require("utils.filetypes")
 --  define the property 'filetypes' to the map in question.
 local servers = {
     bashls = {},
-    clangd = {},
     cssls = {},
     eslint = {},
     marksman = {},
@@ -222,6 +221,14 @@ local servers = {
 -- Most likely manually installed on the system.
 local external_servers = {
     nixd = {}, -- https://github.com/nix-community/nixd/blob/main/nixd/docs/editor-setup.md
+
+    clangd = {
+        cmd = {
+            "clangd",
+            "--query-driver=**",
+            "--clang-tidy",
+        },
+    },
 }
 
 local mason_tools_installs = vim.tbl_extend("keep", {}, vim.tbl_keys(servers))
