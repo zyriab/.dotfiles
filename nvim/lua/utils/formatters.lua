@@ -1,5 +1,11 @@
 local M = {}
 
+local function debug_log(msg)
+    if vim.g.format_buffer_debug then
+        vim.notify("[formatters] " .. msg, vim.log.levels.DEBUG)
+    end
+end
+
 -- Executes the given command or print the error if it failed
 -- Use this instead of `vim.cmd("%!foo %")`
 --
@@ -13,10 +19,14 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
     local dst_file_path = vim.api.nvim_buf_get_name(bufnr)
     local dst_file_name = vim.iter(vim.gsplit(dst_file_path, "/", { plain = true, trimempty = true })):last()
 
+    debug_log("Destination file: " .. dst_file_path)
+    debug_log("Destination filename: " .. dst_file_name)
+
     -- tempname usually is an integer like `0`.
     -- Adding the original filename to it gives `tempname` the proper extension.
     -- It's useful because some formatters (like Templ) only work on files with the proper extension.
     local temp_file_name = vim.fn.tempname() .. dst_file_name
+    debug_log("Temp file: " .. temp_file_name)
 
     vim.api.nvim_buf_call(bufnr, function()
         vim.cmd("silent noa write " .. vim.fn.fnameescape(temp_file_name))
@@ -38,9 +48,12 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
     for i, arg in ipairs(modified_cmd) do
         if arg == "%" or arg == vim.fn.expand("%") then
             modified_cmd[i] = temp_file_name
+            debug_log("Replaced argument '" .. arg .. "' with temp file")
             break
         end
     end
+
+    debug_log("Final command: " .. table.concat(modified_cmd, " "))
 
     local opts = {
         stdin = temp_content,
@@ -48,6 +61,14 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
         env = env or {},
     }
 
+    debug_log("Using stdin: true (passing file content as input)")
+    debug_log("Stdin content length: " .. #temp_content .. " bytes")
+
+    if env and next(env) then
+        debug_log("Environment variables: " .. vim.inspect(env))
+    end
+
+    debug_log("Executing command...")
     local ok, result = pcall(function()
         return vim.system(modified_cmd, opts):wait()
     end)
@@ -55,14 +76,21 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
     os.remove(temp_file_name)
 
     if not ok then
+        debug_log("Command execution failed with error: " .. tostring(result))
         vim.notify_once("Error running " .. cmd[1] .. ": " .. result, vim.log.levels.ERROR)
         return false
     end
+
+    debug_log("Command exit code: " .. result.code)
+    debug_log("Stdout length: " .. #(result.stdout or "") .. " bytes")
+    debug_log("Stderr length: " .. #(result.stderr or "") .. " bytes")
 
     if result.code ~= 0 then
         ---@type string
         ---@diagnostic disable-next-line: assign-type-mismatch
         local out = result.stderr ~= "" and result.stderr or result.stdout
+        debug_log("Command failed with stderr: " .. (result.stderr or ""))
+        debug_log("Command failed with stdout: " .. (result.stdout or ""))
         local user_file_name = string.gsub(dst_file_path, vim.fn.getcwd() .. "/", "")
         out = string.gsub(out, temp_file_name, user_file_name)
 
@@ -77,6 +105,24 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
         table.remove(formatted)
     end
 
+    debug_log("Formatted output has " .. #formatted .. " lines")
+
+    -- Compare with original buffer
+    local original_lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    debug_log("Original buffer has " .. #original_lines .. " lines")
+
+    if #formatted == #original_lines then
+        local changes = 0
+        for i = 1, #formatted do
+            if formatted[i] ~= original_lines[i] then
+                changes = changes + 1
+            end
+        end
+        debug_log("Lines changed: " .. changes .. " out of " .. #formatted)
+    else
+        debug_log("Line count changed: " .. #original_lines .. " -> " .. #formatted)
+    end
+
     -- Saving the folds state
     vim.cmd([[ mkview ]])
 
@@ -85,6 +131,7 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
     -- Restoring folds
     vim.cmd([[ loadview ]])
 
+    debug_log("Buffer updated successfully")
     return true
 end
 
