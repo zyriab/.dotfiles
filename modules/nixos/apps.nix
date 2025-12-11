@@ -3,7 +3,6 @@
   environment.systemPackages = with pkgs; [
     # Work
     slack
-    dbeaver-bin
 
     # Media
     spotify
@@ -19,6 +18,8 @@
     chromium
     gnome-calculator
     nautilus
+
+    (callPackage ../../pkgs/dbeaver-patched.nix { inherit pkgs; })
 
     # Gaming
     wineWowPackages.stable
