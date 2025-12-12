@@ -187,7 +187,7 @@ local servers = {
             filetypes.typescript,
             filetypes.javascript,
         },
-        init_options = { userLanguages = { templ = "html" } },
+        init_options = { includeLanguages = { templ = "html" } },
     },
 
     templ = {
