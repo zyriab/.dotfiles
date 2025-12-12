@@ -8,6 +8,7 @@
     ../../modules/home/tools.nix
     ../../modules/home/dev.nix
     ../../modules/home/ghostty.nix
+    ../../modules/home/waybar.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
