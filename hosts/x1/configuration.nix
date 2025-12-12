@@ -14,6 +14,11 @@
     ../../modules/nixos/audio.nix
     ../../modules/nixos/hardware.nix
     ../../modules/nixos/apps.nix
+    ../../modules/nixos/gaming.nix
+    ../../modules/nixos/gnome.nix
+    ../../modules/nixos/fonts.nix
+    ../../modules/nixos/browsers.nix
+    ../../modules/nixos/hyprland.nix
   ];
 
   nix.settings.experimental-features = [
@@ -59,11 +64,6 @@
     LC_TELEPHONE = "fr_BE.UTF-8";
     LC_TIME = "en_GB.UTF-8"; # Getting EN with Monday as first day
   };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-mono
-    font-awesome
-  ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -123,48 +123,14 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.gnome.excludePackages = [ pkgs.totem ];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    inputs.claude-code.packages.${stdenv.hostPlatform.system}.default
-
-    (callPackage ../../pkgs/inkdrop.nix { })
-
-    # Hyprland (will move to hypr.nix)
-    wofi
-    waybar
-    playerctl
-    hyprshot
-    hyprmon
-    hypridle
-    hyprcursor
-    nwg-look
-    brightnessctl
-    swaynotificationcenter
-    libnotify
-    hyprpaper
-    hyprdim
-    fuzzel
-
-    # GNOME (will move to gnome.nix)
-    xclip
-    gnome-session
-    xorg.xkill
-  ];
+  environment.systemPackages = [ ];
 
   programs = {
-    hyprland.enable = true;
-    hyprlock.enable = true;
-
     nautilus-open-any-terminal = {
       enable = true;
       terminal = "ghostty";
@@ -175,15 +141,6 @@
       libraries = with pkgs; [
         stdenv.cc.cc
         prettierd
-      ];
-    };
-
-    firefox = {
-      enable = true;
-      languagePacks = [
-        "en-US"
-        "fr"
-        "es-ES"
       ];
     };
 
