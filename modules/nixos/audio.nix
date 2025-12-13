@@ -1,8 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 {
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.playerctld.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    pwvucontrol
+  ];
 
   services.pipewire = {
     enable = true;
