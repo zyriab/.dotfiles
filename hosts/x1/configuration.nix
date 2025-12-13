@@ -18,7 +18,6 @@
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/browsers.nix
-    ../../modules/nixos/hyprland.nix
   ];
 
   nix.settings.experimental-features = [
@@ -131,6 +130,9 @@
   environment.systemPackages = [ ];
 
   programs = {
+    # Needs to be here in order to be available in the login screen
+    hyprland.enable = true;
+
     nautilus-open-any-terminal = {
       enable = true;
       terminal = "ghostty";
