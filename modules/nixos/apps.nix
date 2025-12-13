@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # Notes
+    (callPackage ../../pkgs/inkdrop.nix { })
+
     # Work
     slack
 
@@ -15,16 +18,9 @@
     _1password-gui
     obsidian
     libreoffice
-    chromium
     gnome-calculator
     nautilus
 
     (callPackage ../../pkgs/dbeaver-patched.nix { inherit pkgs; })
-
-    # Gaming
-    wineWowPackages.stable
-    winetricks
   ];
-
-  programs.steam.enable = true;
 }
