@@ -3,6 +3,9 @@
   programs.go.enable = true;
 
   home.packages = with pkgs; [
+    # CLI tools
+    inputs.claude-code.packages.${stdenv.hostPlatform.system}.default
+
     # Testing
     inputs.opencode.packages.${stdenv.hostPlatform.system}.default
     postman
