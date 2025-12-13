@@ -30,6 +30,8 @@
     usbutils
     imagemagick
     bluetuith
+    blueman
+    networkmanagerapplet
     wl-clipboard
     lazydocker
   ];
