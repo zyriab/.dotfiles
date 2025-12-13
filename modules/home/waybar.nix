@@ -106,7 +106,7 @@
             mode-mon-col = 1;
             on-scroll = 1;
           };
-          tooltip-format = "<span color='#c9d1d9' font='FiraCode Nerd Font Mono 10'><tt><small>{calendar}</small></tt></span>";
+          tooltip-format = "<span color='#c9d1d9' font='FiraMono Nerd Font Mono 10'><tt><small>{calendar}</small></tt></span>";
         };
 
         pulseaudio = {
