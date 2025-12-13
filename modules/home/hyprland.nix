@@ -1,16 +1,170 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+      };
+
+      listener = [
+        {
+          timeout = 150;
+          on-timeout = "brightnessctl -s set 10%";
+          on-resume = "brightnessctl -r";
+        }
+        {
+          timeout = 150;
+          on-timeout = "brightnessctl -sd tpacpi::kbd_backlight set 0";
+          on-resume = "brightnessctl -rd tpacpi::kbd_backlight";
+        }
+        {
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
+        }
+        {
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+        }
+        {
+          timeout = 1800;
+          on-timeout = "systemctl suspend";
+        }
+      ];
+    };
+  };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        hide_cursor = true;
+        disable_loading_bar = true;
+      };
+
+      background = [
+        {
+          monitor = "";
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 4;
+        }
+      ];
+
+      input-field = [
+        {
+          monitor = "";
+          size = "300, 50";
+          outline_thickness = 2;
+          inner_color = "rgba(0d111780)";
+          outer_color = "rgb(79c0ff)";
+          check_color = "rgb(39c5cf)";
+          fail_color = "rgb(ec8e2c)";
+          capslock_color = "rgb(ef0fff)";
+          font_color = "rgb(c9d1d9)";
+          fade_on_empty = false;
+          rounding = 8;
+          font_family = "FiraMono Nerd Font Mono";
+          placeholder_text = "<span foreground=\"##c9d1d9\">󰌾  Logged in as <span foreground=\"##c9d1d9\">$USER</span></span>";
+          fail_text = "<span foreground=\"##ec8e2c\">$PAMFAIL</span>";
+          dots_spacing = 0.3;
+          dots_center = true;
+          position = "0, -20";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+
+      label = [
+        # TIME
+        {
+          monitor = "";
+          text = "$TIME";
+          color = "rgb(c9d1d9)";
+          font_size = 90;
+          font_family = "FiraMono Nerd Font Mono";
+          position = "-30, 0";
+          halign = "right";
+          valign = "top";
+        }
+        # DATE
+        {
+          monitor = "";
+          text = "cmd[update:60000] date +\"%A, %d %B %Y\"";
+          color = "rgb(8b949e)";
+          font_size = 25;
+          font_family = "FiraMono Nerd Font Mono";
+          position = "-30, -150";
+          halign = "right";
+          valign = "top";
+        }
+        # CAPS LOCK WARNING
+        {
+          monitor = "";
+          text = "cmd[update:100] if [ $(cat /sys/class/leds/input*::capslock/brightness 2>/dev/null | head -1) = \"1\" ]; then echo \"󰪛  CAPS LOCK\"; fi";
+          color = "rgb(ef0fff)";
+          font_size = 16;
+          font_family = "FiraMono Nerd Font Mono";
+          position = "0, -120";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+    };
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings =
+      let
+        wallpaper = "~/Pictures/Wallpapers/blue-ridge-mountains.jpg";
+      in
+      {
+        preload = [ wallpaper ];
+        wallpaper = [
+          "eDP-1, ${wallpaper}"
+          "HDMI-A-2, ${wallpaper}"
+        ];
+      };
+  };
+
+  services.swaync.enable = true;
+
+  home.packages = with pkgs; [
+    wofi
+    waybar
+    playerctl
+    hyprshot
+    hyprmon
+    hypridle
+    hyprcursor
+    hyprlock
+    nwg-look
+    brightnessctl
+    swaynotificationcenter
+    libnotify
+    hyprpaper
+    hyprdim
+    fuzzel
+
+    # Fallback term if system is FUBAR
+    kitty
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
 
-    plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-    ];
+    # plugins = [
+    #   inputs.split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
+    # ];
 
     settings = {
       # Monitor configuration
       monitor = [
-        "eDP-1,2560x1440@60.00,3520x1080,1.66"
+        "eDP-1,2560x1440@60.00,3520x1080,1.6"
         "HDMI-A-2,1920x1080@60.00,1600x0,1.00"
       ];
 
@@ -20,17 +174,13 @@
       "$calculator" = "gnome-calculator";
       "$menu" = "fuzzel";
       "$lockscreen" = "hyprlock";
+      # Ozone thing is needed to fix some rendering issues
       "$browser" = "chromium --ozone-platform-hint=auto";
       "$notes" = "obsidian";
       "$mainMod" = "SUPER";
 
-      # Autostart
-      exec-once = [
-        "waybar &"
-        "swaync &"
-        "hypridle &"
-        "hyprpaper &"
-      ];
+      # Autostart (other services managed via systemd)
+      exec-once = [ ];
 
       # Environment variables
       env = [
@@ -187,37 +337,37 @@
         "$mainMod, K, movefocus, u"
         "$mainMod, L, movefocus, r"
 
-        # Workspace switching (arrows) - cycle through workspaces
-        "CTRL, left, split-workspace, e-1"
-        "CTRL, right, split-workspace, e+1"
+        # Workspace switching (arrows)
+        "CTRL, left, workspace, -1"
+        "CTRL, right, workspace, +1"
 
         # Switch focus between monitors
         "$mainMod, bracketleft, focusmonitor, -1"
         "$mainMod, bracketright, focusmonitor, +1"
 
-        # Workspace switching (numbers) - per-monitor workspaces
-        "$mainMod, 1, split-workspace, 1"
-        "$mainMod, 2, split-workspace, 2"
-        "$mainMod, 3, split-workspace, 3"
-        "$mainMod, 4, split-workspace, 4"
-        "$mainMod, 5, split-workspace, 5"
-        "$mainMod, 6, split-workspace, 6"
-        "$mainMod, 7, split-workspace, 7"
-        "$mainMod, 8, split-workspace, 8"
-        "$mainMod, 9, split-workspace, 9"
-        "$mainMod, 0, split-workspace, 10"
+        # Workspace switching (numbers)
+        "$mainMod, 1, workspace, 1"
+        "$mainMod, 2, workspace, 2"
+        "$mainMod, 3, workspace, 3"
+        "$mainMod, 4, workspace, 4"
+        "$mainMod, 5, workspace, 5"
+        "$mainMod, 6, workspace, 6"
+        "$mainMod, 7, workspace, 7"
+        "$mainMod, 8, workspace, 8"
+        "$mainMod, 9, workspace, 9"
+        "$mainMod, 0, workspace, 10"
 
-        # Move to workspace - per-monitor workspaces
-        "$SUPER_ALT, 1, split-movetoworkspacesilent, 1"
-        "$SUPER_ALT, 2, split-movetoworkspacesilent, 2"
-        "$SUPER_ALT, 3, split-movetoworkspacesilent, 3"
-        "$SUPER_ALT, 4, split-movetoworkspacesilent, 4"
-        "$SUPER_ALT, 5, split-movetoworkspacesilent, 5"
-        "$SUPER_ALT, 6, split-movetoworkspacesilent, 6"
-        "$SUPER_ALT, 7, split-movetoworkspacesilent, 7"
-        "$SUPER_ALT, 8, split-movetoworkspacesilent, 8"
-        "$SUPER_ALT, 9, split-movetoworkspacesilent, 9"
-        "$SUPER_ALT, 0, split-movetoworkspacesilent, 10"
+        # Move to workspace
+        "$SUPER_ALT, 1, movetoworkspace, 1"
+        "$SUPER_ALT, 2, movetoworkspace, 2"
+        "$SUPER_ALT, 3, movetoworkspace, 3"
+        "$SUPER_ALT, 4, movetoworkspace, 4"
+        "$SUPER_ALT, 5, movetoworkspace, 5"
+        "$SUPER_ALT, 6, movetoworkspace, 6"
+        "$SUPER_ALT, 7, movetoworkspace, 7"
+        "$SUPER_ALT, 8, movetoworkspace, 8"
+        "$SUPER_ALT, 9, movetoworkspace, 9"
+        "$SUPER_ALT, 10, movetoworkspace, 10"
 
         # Special workspace (scratchpad)
         "$mainMod, S, togglespecialworkspace, magic"

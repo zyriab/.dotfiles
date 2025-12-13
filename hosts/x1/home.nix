@@ -9,6 +9,7 @@
     ../../modules/home/dev.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/waybar.nix
+    ../../modules/home/hyprland.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
