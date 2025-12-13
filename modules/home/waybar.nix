@@ -2,6 +2,10 @@
 {
   programs.waybar = {
     enable = true;
+    systemd = {
+      enable = true;
+      target = "graphical-session.target";
+    };
     settings = {
       mainBar = {
         layer = "bottom";
@@ -23,8 +27,6 @@
         ];
 
         modules-right = [
-          "cpu"
-          "memory"
           "network"
           "bluetooth"
           "pulseaudio"
@@ -107,32 +109,22 @@
           tooltip-format = "<span color='#c9d1d9' font='FiraCode Nerd Font Mono 10'><tt><small>{calendar}</small></tt></span>";
         };
 
-        cpu = {
-          format = " {usage}%";
-          tooltip = true;
-          interval = 1;
-        };
-
-        memory = {
-          format = " {used:0.1f}Gi";
-        };
-
         pulseaudio = {
           format = "{icon} {volume}%";
-          format-muted = "  muted";
+          format-muted = "󰸈  muted";
           format-icons = {
-            headphone = "";
+            headphone = "󰋋";
             default = [
-              " "
-              " "
-              " "
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
           };
-          on-click = "hyprmixer";
+          on-click = "pwvucontrol";
         };
 
         network = {
-          format-wifi = "  {essid} ({signalStrength}%)";
+          format-wifi = "󰖩 {signalStrength}%";
           format-ethernet = "󰈀 {ipaddr}";
           format-disconnected = "󰖪 Disconnected";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
@@ -141,10 +133,10 @@
         };
 
         bluetooth = {
-          format = " {status}";
+          format = "󰂯 {status}";
           format-disabled = "󰂲";
-          format-connected = " {device_alias}";
-          format-connected-battery = " {device_alias} ({device_battery_percentage}%)";
+          format-connected = "󰂱 {device_alias}";
+          format-connected-battery = "󰂱 {device_alias} ({device_battery_percentage}%)";
           tooltip-format = "{controller_alias}\t{controller_address}";
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
@@ -170,6 +162,8 @@
           format-icons = {
             none = "󰅺";
             notification = "󰡟";
+            dnd-none = "󰂛";
+            dnd-notification = "󰂛";
           };
           on-click = "sleep 0.1 && swaync-client -t -sw";
           return-type = "json";
@@ -182,7 +176,7 @@
       * {
           min-height: 0;
           min-width: 0;
-          font-family: "FiraCode Nerd Font Mono", "FiraCode Mono", monospace;
+          font-family: "FiraMono Nerd Font Mono", monospace;
           font-size: 11px;
           font-weight: 600;
       }
@@ -223,9 +217,7 @@
       #custom-power,
       #custom-spotify,
       #custom-notification,
-      #cpu,
       #tray,
-      #memory,
       #window,
       #mpris,
       #network,
@@ -252,14 +244,6 @@
 
       window#waybar.empty #window {
           background-color: transparent;
-      }
-
-      #cpu {
-          color: #39c5cf;
-      }
-
-      #memory {
-          color: #bc8cff;
       }
 
       #clock {
