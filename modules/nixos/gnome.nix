@@ -5,7 +5,6 @@
 
   environment.gnome.excludePackages = [ pkgs.totem ];
 
-
   environment.systemPackages = with pkgs; [
     xclip
     gnome-session
