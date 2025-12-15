@@ -53,10 +53,11 @@
             "artist"
             "title"
           ];
-          format = "{player_icon} {dynamic}";
-          format-paused = "{status_icon} <i>{dynamic}</i>";
+          format = "{player_icon} {status_icon} {dynamic}";
+          format-paused = "{player_icon} {status_icon} <i>{dynamic}</i>";
           status-icons = {
-            paused = "";
+            playing = "󰐊";
+            paused = "󰏤";
           };
           player-icons = {
             default = "";
