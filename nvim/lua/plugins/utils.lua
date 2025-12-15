@@ -1,6 +1,5 @@
 return {
     require("plugins.utils.harpoon"),
-    require("plugins.utils.live-server"),
     require("plugins.utils.nvim-tree"),
     require("plugins.utils.telescope"),
     require("plugins.utils.undotree"),
