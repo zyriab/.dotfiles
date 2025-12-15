@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     # CLI tools
     inputs.claude-code.packages.${stdenv.hostPlatform.system}.default
+    cloc
 
     # Testing
     inputs.opencode.packages.${stdenv.hostPlatform.system}.default
