@@ -304,6 +304,10 @@
 
       # Keybindings
       bind = [
+        # FIXME: dispatchers aren't recognized
+        # "$mainMod, bracketleft, split-changemonitor, prev"
+        # "$mainMod, bracketright, split-changemonitor, next"
+
         # Program launches
         "$mainMod, T, exec, $terminal"
         "$SUPER_ALT, T, exec, $terminal --title=scratch_term"
@@ -419,13 +423,13 @@
 
       # Plugins
       plugin = {
-        split-monitor-workspaces = {
-          count = 10;
-          keep_focused = 0;
-          enable_notifications = 0;
-          enable_persistent_workspaces = 1;
-          enable_wrapping = 1;
-        };
+        # split-monitor-workspaces = {
+        #   count = 10;
+        #   keep_focused = 0;
+        #   enable_notifications = 0;
+        #   enable_persistent_workspaces = 1;
+        #   enable_wrapping = 1;
+        # };
 
         hyprexpo = {
           columns = 3;
