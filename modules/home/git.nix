@@ -33,7 +33,8 @@ in
       gui = {
         nerdFontsVersion = "3";
         showFileTree = false;
-        theme.selectedBgColor = "1e4273";
+        theme.selectedRangeBgColor = [ "#1e4273" ];
+        theme.selectedLineBgColor = [ "#1e4273" ];
         showNumstatInFilesView = true;
         commandLogSize = 4;
         statusPanelView = "allBranchesLog";
