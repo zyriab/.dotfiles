@@ -261,6 +261,21 @@ return function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
+    -- Ensure document symbol capability is enabled (needed for outline.nvim)
+    capabilities.textDocument.documentSymbol = {
+        dynamicRegistration = false,
+        symbolKind = {
+            valueSet = (function()
+                local values = {}
+                for i = 1, 26 do
+                    table.insert(values, i)
+                end
+                return values
+            end)(),
+        },
+        hierarchicalDocumentSymbolSupport = true,
+    }
+
     mason_lspconfig.setup({
         ensure_installed = mason_tools_installs,
         automatic_installation = false,
