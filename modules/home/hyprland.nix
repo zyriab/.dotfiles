@@ -138,7 +138,6 @@
     waybar
     playerctl
     hyprshot
-    hyprmon
     hypridle
     hyprcursor
     hyprlock
@@ -148,7 +147,6 @@
     libnotify
     hyprpaper
     hyprdim
-    fuzzel
 
     # Fallback term if system is FUBAR
     kitty
@@ -164,8 +162,8 @@
     settings = {
       # Monitor configuration
       monitor = [
-        "eDP-1,2560x1440@60.00,3520x1080,1.6"
-        "HDMI-A-2,1920x1080@60.00,1600x0,1.00"
+        "eDP-1,disable"
+        "HDMI-A-2,1920x1080@60.00,0x0,1.00"
       ];
 
       # Program variables
