@@ -15,7 +15,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    initContent = ''
+    initExtra = ''
       # Set default gh account on shell start
       gh auth switch --user zyriab 2>/dev/null
 
@@ -25,6 +25,11 @@
           gh auth switch --user zyriab 2>/dev/null
         fi
       }
+
+      # Conditionally initialize zoxide
+      if [ -z "$DISABLE_ZOXIDE" ]; then
+        eval "$(zoxide init --cmd cd zsh)"
+      fi
     '';
 
     oh-my-zsh = {
@@ -39,7 +44,8 @@
 
   programs.zoxide = {
     enable = true;
-    options = [ "--cmd cd" ];
+    # Disable automatic shell integration - we'll do it manually
+    enableZshIntegration = false;
   };
 
   programs.direnv = {
