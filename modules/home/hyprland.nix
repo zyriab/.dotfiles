@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+
   services.hypridle = {
     enable = true;
     settings = {
@@ -368,7 +369,7 @@
         "$SUPER_ALT, 7, movetoworkspace, 7"
         "$SUPER_ALT, 8, movetoworkspace, 8"
         "$SUPER_ALT, 9, movetoworkspace, 9"
-        "$SUPER_ALT, 10, movetoworkspace, 10"
+        "$SUPER_ALT, 0, movetoworkspace, 10"
 
         # Special workspace (scratchpad)
         "$mainMod, S, togglespecialworkspace, magic"
