@@ -15,7 +15,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    initExtra = ''
+    initContent = ''
       # Set default gh account on shell start
       gh auth switch --user zyriab 2>/dev/null
 
