@@ -7,9 +7,6 @@
       command = "bash ~/.claude/statusline-command.sh";
     };
     alwaysThinkingEnabled = false;
-    env = {
-      DISABLE_ZOXIDE = "1";
-    };
   };
 
   home.file.".claude/statusline-command.sh" = {

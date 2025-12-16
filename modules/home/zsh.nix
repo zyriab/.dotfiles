@@ -26,8 +26,8 @@
         fi
       }
 
-      # Conditionally initialize zoxide
-      if [ -z "$DISABLE_ZOXIDE" ]; then
+      # Conditionally initialize zoxide (disabled in Claude Code)
+      if [[ -z "$CLAUDECODE" ]]; then
         eval "$(zoxide init --cmd cd zsh)"
       fi
     '';
