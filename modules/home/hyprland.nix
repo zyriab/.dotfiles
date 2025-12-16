@@ -134,6 +134,24 @@
 
   services.swaync.enable = true;
 
+  # Custom systemd service for hyprdim
+  systemd.user.services.hyprdim = {
+    Unit = {
+      Description = "Hyprdim - Automatically dim inactive windows";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.hyprdim}/bin/hyprdim --strength 0.25 --duration 300 --dialog-dim 0.2 --fade 3";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   home.packages = with pkgs; [
     wofi
     waybar
