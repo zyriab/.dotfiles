@@ -15,7 +15,6 @@
       };
     };
   };
-  programs.tmux.enable = true;
 
   home.packages = with pkgs; [
     curl
