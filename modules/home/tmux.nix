@@ -30,7 +30,7 @@ in
 
   programs.tmux = {
     enable = true;
-    prefix = "C-Space";
+    shortcut = "Space";
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     historyLimit = 100000;
@@ -44,6 +44,10 @@ in
     clock24 = true;
 
     extraConfig = ''
+      # Easier and faster switching between next/prev window
+      bind C-p previous-window
+      bind C-n next-window
+
       set -g status-right '#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} #{battery_remain} | %a %h-%d %H:%M'
 
       # Increasing messages display from 750ms to 4s
@@ -59,7 +63,7 @@ in
     plugins = [
       {
         plugin = tmux-menus;
-        extraConfig = "set -g @menus_trigger f";
+        extraConfig = "set -g @menus_trigger '/'";
       }
       {
         plugin = tmux-battery;
