@@ -1,5 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
+  # ARM emulation for building aarch64 packages (e.g., uConsole)
+  # Required because the kernel package requires system = "aarch64-linux"
+  boot.binfmt.emulatedSystems = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+    "aarch64-linux"
+  ];
+  nix.settings.extra-platforms = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+    "aarch64-linux"
+  ];
+
   hardware = {
     bluetooth = {
       enable = true;
