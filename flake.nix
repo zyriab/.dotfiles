@@ -76,5 +76,15 @@
           ./hosts/xenia/configuration.nix
         ];
       };
+
+      # ARM64 build server (germain)
+      nixosConfigurations.germain = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/germain/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
     };
 }
