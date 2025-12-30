@@ -157,7 +157,6 @@
     waybar
     playerctl
     hyprshot
-    hypridle
     hyprcursor
     hyprlock
     nwg-look
@@ -181,31 +180,13 @@
     settings =
       let
         # Monitor configuration variables
-        laptopMonitor = "eDP-1";
-        laptopMonitorConfig = "eDP-1,2560x1440,1920x1000,1.6";
+        # laptopMonitorConfig = "eDP-1,2560x1440,1920x1000,1.6";
+        laptopMonitorConfig = "eDP-1,disable";
 
-        # Script to handle lid switch intelligently
-        lidSwitchScript = pkgs.writeShellScript "lid-switch-handler" ''
-          LAPTOP_MONITOR="${laptopMonitor}"
-
-          # Check if external monitors are connected (excluding the laptop screen)
-          EXTERNAL_MONITORS=$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r --arg laptop "$LAPTOP_MONITOR" '[.[] | select(.name != $laptop)] | length')
-
-          if [ "$1" == "close" ]; then
-            # Only disable laptop monitor if external monitors are connected
-            if [ "$EXTERNAL_MONITORS" -gt 0 ]; then
-              hyprctl keyword monitor "$LAPTOP_MONITOR,disable"
-            fi
-          elif [ "$1" == "open" ]; then
-            # Re-enable laptop monitor with original config
-            hyprctl keyword monitor "${laptopMonitorConfig}"
-          fi
-        '';
       in
       {
         # Monitor configuration
         monitor = [
-          # "eDP-1,disable"
           laptopMonitorConfig
           "HDMI-A-2,1920x1080@60.00,0x0,1.00"
         ];
@@ -340,9 +321,17 @@
 
         # Window rules
         windowrulev2 = [
+          # Floating terminal
           "float, class:^(com\\.mitchellh\\.ghostty)$, title:^(scratch_term)$"
+          # Floating Blueman
+          "float, class:^(\\.blueman-manager-wrapped)$"
+          # Floating pwvucontrol
+          "float, class:^(com.saivert.pwvucontrol)$"
+          # Floating calculator
           "float, class:^(org\\.gnome\\.Calculator)$"
+          # Suppress maximize events for all windows
           "suppressevent maximize, class:.*"
+          # Don't focus empty XWayland floating windows (prevents focus on invisible windows)
           "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
         ];
 
@@ -443,11 +432,6 @@
 
         # Locked binds (work even when locked)
         bindl = [
-          # Lid switch handlers - only disable laptop screen if external monitors are connected
-          ", switch:on:Lid Switch, exec, ${lidSwitchScript} close"
-          ", switch:off:Lid Switch, exec, ${lidSwitchScript} open"
-
-          # Media keys
           ", XF86AudioNext, exec, playerctl next"
           ", XF86AudioPause, exec, playerctl play-pause"
           ", XF86AudioPlay, exec, playerctl play-pause"
