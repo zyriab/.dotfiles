@@ -6,6 +6,7 @@
     ../../modules/home/zsh.nix
     ../../modules/home/neovim.nix
     ../../modules/home/tools.nix
+    ../../modules/home/tmux.nix
     ../../modules/home/dev.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/waybar.nix
