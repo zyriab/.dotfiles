@@ -42,6 +42,7 @@
     git
     curl
     ripgrep
+    lazygit
   ];
 
   system.stateVersion = "25.11";
