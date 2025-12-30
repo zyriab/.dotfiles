@@ -191,7 +191,7 @@ local servers = {
     },
 
     templ = {
-        cmd = { "templ", "lsp", "-log", "/Users/zyr/tmp/logs/templ.log" },
+        cmd = { "templ", "lsp", "-log", vim.fn.stdpath("cache") .. "/templ.log" },
         filetypes = { filetypes.templ },
     },
 
