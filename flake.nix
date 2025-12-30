@@ -23,7 +23,7 @@
     # xremap for mouse/keyboard remapping
     xremap.url = "github:xremap/nix-flake";
 
-    # uConsole (microboi) support
+    # uConsole (xenia) support
     nixos-raspberrypi.url = "github:robertjakub/nixos-raspberrypi/develop";
     nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -47,8 +47,8 @@
         ];
       };
 
-      # uConsole CM4 (microboi)
-      nixosConfigurations.microboi = inputs.nixos-raspberrypi.lib.nixosSystem {
+      # uConsole CM4 (xenia)
+      nixosConfigurations.xenia = inputs.nixos-raspberrypi.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
           nixos-raspberrypi = inputs.nixos-raspberrypi;
@@ -72,8 +72,8 @@
             boot.loader.raspberryPi.bootloader = "kernel";
           })
 
-          ./hosts/microboi/hardware-configuration.nix
-          ./hosts/microboi/configuration.nix
+          ./hosts/xenia/hardware-configuration.nix
+          ./hosts/xenia/configuration.nix
         ];
       };
     };

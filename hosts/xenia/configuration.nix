@@ -3,7 +3,7 @@
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "microboi";
+  networking.hostName = "xenia";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Brussels";
