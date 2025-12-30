@@ -26,6 +26,7 @@ in
   # Dependencies
   home.packages = with pkgs; [
     upower # Needed by tmux-battery
+    ghostty.terminfo # For SSH sessions from ghostty
   ];
 
   programs.tmux = {
