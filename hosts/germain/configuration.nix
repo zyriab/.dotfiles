@@ -21,6 +21,7 @@
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAShO/JDmlKC2RAVURPnSUpc+EQrj2/C2PrKeHbChkte lab@x1"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkD8JFtguKfrnNtNHDuF0KG69Fx1iUKYjLkmdYqjqVk root@xenia"
   ];
 
   services.openssh = {
