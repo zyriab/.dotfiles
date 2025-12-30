@@ -31,6 +31,7 @@
   # QMK keyboard support
   environment.systemPackages = with pkgs; [
     qmk
+    evtest # For testing input devices
   ];
 
   services.udev.packages = with pkgs; [
@@ -38,5 +39,23 @@
     via
     vial
   ];
+
+  # xremap for trackball button remapping
+  services.xremap = {
+    enable = true;
+    withWlroots = true; # For Hyprland support
+    mouse = true; # Enable mouse device monitoring
+    watch = true; # Watch for new devices (helps with BT reconnection)
+
+    config.modmap = [
+      {
+        name = "Kensington Trackball";
+        remap = {
+          # Remap top-right button (BTN_SIDE) to right click (BTN_RIGHT)
+          BTN_SIDE = "BTN_RIGHT";
+        };
+      }
+    ];
+  };
 
 }
