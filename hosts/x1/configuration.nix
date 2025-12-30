@@ -18,6 +18,7 @@
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/browsers.nix
+    inputs.xremap.nixosModules.default
   ];
 
   nix.settings.experimental-features = [
