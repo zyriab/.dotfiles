@@ -25,9 +25,9 @@
     "flakes"
   ];
 
-  # services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 
-  # Bootloader.
+  # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
