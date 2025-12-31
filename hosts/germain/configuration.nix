@@ -57,6 +57,7 @@
     ripgrep
     lazygit
     cachix
+    gh
   ];
 
   system.stateVersion = "25.11";
