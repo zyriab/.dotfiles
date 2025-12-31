@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/home/tmux.nix
+    ../../modules/home/zsh.nix
   ];
 
   home.username = "root";
