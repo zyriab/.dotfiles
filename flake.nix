@@ -62,6 +62,9 @@
           inputs.oom-hardware.nixosModules.uc.configtxt
           inputs.oom-hardware.nixosModules.uc.base-cm4
 
+          # Home Manager
+          inputs.home-manager.nixosModules.default
+
           # Required compatibility fixes
           ({ lib, modulesPath, ... }: {
             disabledModules = [ (modulesPath + "/rename.nix") ];
