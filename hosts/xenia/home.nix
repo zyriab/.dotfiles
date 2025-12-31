@@ -22,6 +22,7 @@
 
   home.packages = with pkgs; [
     foot           # Lightweight terminal for small screen
+    legcord        # ARM-compatible Discord client
   ];
 
   programs.home-manager.enable = true;
