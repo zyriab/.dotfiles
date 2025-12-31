@@ -27,9 +27,9 @@
     nixos-raspberrypi.url = "github:robertjakub/nixos-raspberrypi/develop";
     nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
 
-    oom-hardware.url = "github:robertjakub/oom-hardware/devel";
-    oom-hardware.inputs.nixpkgs.follows = "nixpkgs";
-    oom-hardware.inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
+    nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
+    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-uconsole.inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
   };
 
   outputs =
@@ -48,33 +48,10 @@
       };
 
       # uConsole CM4 (xenia)
-      nixosConfigurations.xenia = inputs.nixos-raspberrypi.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          nixos-raspberrypi = inputs.nixos-raspberrypi;
-          oom-hardware = inputs.oom-hardware;
-        };
+      nixosConfigurations.xenia = inputs.nixos-uconsole.lib.mkUConsoleSystem {
+        specialArgs = { inherit inputs; };
         modules = [
-          # Hardware modules
-          inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
-          inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.bluetooth
-          inputs.oom-hardware.nixosModules.uc.kernel
-          inputs.oom-hardware.nixosModules.uc.configtxt
-          inputs.oom-hardware.nixosModules.uc.base-cm4
-
-          # Home Manager
           inputs.home-manager.nixosModules.default
-
-          # Required compatibility fixes
-          ({ lib, modulesPath, ... }: {
-            disabledModules = [ (modulesPath + "/rename.nix") ];
-            imports = [
-              (lib.mkAliasOptionModule [ "environment" "checkConfigurationOptions" ] [ "_module" "check" ])
-            ];
-            nixpkgs.hostPlatform = "aarch64-linux";
-            boot.loader.raspberryPi.bootloader = "kernel";
-          })
-
           ./hosts/xenia/hardware-configuration.nix
           ./hosts/xenia/configuration.nix
         ];
