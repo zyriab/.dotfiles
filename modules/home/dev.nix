@@ -1,4 +1,7 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
+let
+  isX86 = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
+in
 {
   programs.go.enable = true;
 
@@ -6,10 +9,6 @@
     # CLI tools
     inputs.claude-code.packages.${stdenv.hostPlatform.system}.default
     cloc
-
-    # Testing
-    inputs.opencode.packages.${stdenv.hostPlatform.system}.default
-    postman
 
     # Languages & runtimes
     nodejs
@@ -37,7 +36,12 @@
     nix-search-cli
 
     # Networking/tunnels
-    ngrok
     cloudflared
+  ]
+  # x86-only packages
+  ++ lib.optionals isX86 [
+    inputs.opencode.packages.${stdenv.hostPlatform.system}.default
+    postman
+    ngrok
   ];
 }
