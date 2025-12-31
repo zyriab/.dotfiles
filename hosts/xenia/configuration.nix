@@ -29,6 +29,9 @@
 
   programs.zsh.enable = true;
 
+  # GPU/Mesa drivers
+  hardware.graphics.enable = true;
+
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
