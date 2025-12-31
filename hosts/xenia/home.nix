@@ -23,6 +23,7 @@
   home.packages = with pkgs; [
     foot           # Lightweight terminal for small screen
     legcord        # ARM-compatible Discord client
+    slacky         # Unofficial Slack for ARM64
   ];
 
   programs.home-manager.enable = true;
