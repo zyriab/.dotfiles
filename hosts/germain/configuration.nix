@@ -49,6 +49,9 @@
     users.root = import ./home.nix;
   };
 
+  programs.zsh.enable = true;
+  users.users.root.shell = pkgs.zsh;
+
   environment.systemPackages = with pkgs; [
     neovim
     btop
@@ -57,6 +60,7 @@
     ripgrep
     lazygit
     cachix
+    devenv
     gh
   ];
 
