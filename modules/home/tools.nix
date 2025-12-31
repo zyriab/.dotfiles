@@ -33,5 +33,7 @@
     networkmanagerapplet
     wl-clipboard
     lazydocker
+    gparted
+    parted
   ];
 }
