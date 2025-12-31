@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
+  imports = [
+    ../../modules/nixos/audio.nix
+    ../../modules/nixos/fonts.nix
+    ../../modules/nixos/browsers.nix
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "xenia";
@@ -17,7 +23,37 @@
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
       initialPassword = "changeme";
+      shell = pkgs.zsh;
     };
+  };
+
+  programs.zsh.enable = true;
+
+  # Enable Hyprland
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  # Login manager - greetd with tuigreet
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  # Power management
+  services.upower.enable = true;
+  powerManagement.enable = true;
+
+  # Home Manager
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users.zyr = import ./home.nix;
   };
 
   services.openssh = {
@@ -39,6 +75,7 @@
     git
     btop
     wirelesstools
+    iw
   ];
 
   system.stateVersion = "25.11";

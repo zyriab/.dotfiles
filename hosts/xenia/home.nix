@@ -8,6 +8,8 @@
     ../../modules/home/tools.nix
     ../../modules/home/tmux.nix
     ../../modules/home/fuzzel.nix
+    ../../modules/home/dev.nix
+    ../../modules/home/claude-code.nix
     # Custom hyprland config for uConsole
     ./hyprland.nix
   ];
