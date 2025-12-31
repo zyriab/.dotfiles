@@ -107,10 +107,9 @@
     enable = true;
 
     settings = {
-      # uConsole display: 720x1280 rotated to 1280x720
-      # DSI-1 is the panel name
+      # uConsole display: 720x1280 native, rotated 90° for landscape
       monitor = [
-        "DSI-1,1280x720@60,0x0,1,transform,1"
+        "DSI-1,720x1280@60,0x0,1,transform,1"
       ];
 
       # Program variables
