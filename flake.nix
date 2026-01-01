@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Pinned nixpkgs for xenia (aarch64 cross-compile LVM issue in newer versions)
+    nixpkgs-xenia.url = "github:nixos/nixpkgs/2fbfb1d73d239d2402a8fe03963e37aab15abe8b";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,9 +26,9 @@
     # xremap for mouse/keyboard remapping
     xremap.url = "github:xremap/nix-flake";
 
-    # uConsole (xenia) support
+    # uConsole (xenia) support - uses pinned nixpkgs to avoid cross-compile issues
     nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
-    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs-xenia";
   };
 
   outputs =
