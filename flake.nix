@@ -45,7 +45,7 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
-            overlays = [ (import ./overlays) ];
+            overlays = [ (import ./overlays/dfu-programmer.nix) ];
           };
         };
         modules = [
@@ -64,8 +64,8 @@
           # Apply overlays for xenia
           {
             nixpkgs.overlays = [
-              (import ./overlays) # dfu-programmer fix
-              (import ./overlays/lvm2.nix inputs) # lvm2 pin for nixpkgs#475910
+              (import ./overlays/dfu-programmer.nix)
+              (import ./overlays/lvm2.nix inputs) # pin for nixpkgs#475910
             ];
           }
         ];
