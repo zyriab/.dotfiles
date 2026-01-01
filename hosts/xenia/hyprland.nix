@@ -107,16 +107,17 @@
     enable = true;
 
     settings = {
-      # uConsole display: 720x1280 native, rotated 90° for landscape
+      # uConsole display: 720x1280 native, rotated 270° for landscape (right-side up)
       monitor = [
-        "DSI-1,720x1280@60,0x0,1,transform,1"
+        "DSI-1,720x1280@60,0x0,1,transform,3"
       ];
 
       # Program variables
       "$terminal" = "foot";
       "$menu" = "fuzzel";
       "$lockscreen" = "hyprlock";
-      "$mainMod" = "SUPER";
+      # uConsole has no Super key - use Alt as main modifier
+      "$mainMod" = "ALT";
 
       # Autostart
       exec-once = [
