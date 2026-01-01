@@ -24,12 +24,8 @@
     xremap.url = "github:xremap/nix-flake";
 
     # uConsole (xenia) support
-    nixos-raspberrypi.url = "github:robertjakub/nixos-raspberrypi/develop";
-    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
-
     nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
     nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-uconsole.inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
   };
 
   outputs =
