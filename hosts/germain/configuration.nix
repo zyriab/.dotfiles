@@ -60,7 +60,6 @@
     ripgrep
     lazygit
     cachix
-    devenv
     gh
   ];
 
