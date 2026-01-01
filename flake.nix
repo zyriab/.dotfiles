@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Stable home-manager for xenia (matches nixos-uconsole's nixpkgs 25.11)
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-25.11";
+    };
+
     # TODO(hypr): try to make this work
     # split-monitor-workspaces = {
     #   url = "github:Duckonaut/split-monitor-workspaces";
@@ -55,7 +60,7 @@
       nixosConfigurations.xenia = inputs.nixos-uconsole.lib.mkUConsoleSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          inputs.home-manager.nixosModules.default
+          inputs.home-manager-stable.nixosModules.default
           ./hosts/xenia/hardware-configuration.nix
           ./hosts/xenia/configuration.nix
         ];
