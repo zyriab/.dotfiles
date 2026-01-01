@@ -69,7 +69,7 @@
 
   console = {
     earlySetup = true;
-    font = "ter-v32n";
+    font = "ter-v24n";
     packages = with pkgs; [ terminus_font ];
   };
 
