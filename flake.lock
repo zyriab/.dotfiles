@@ -574,11 +574,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767255677,
-        "narHash": "sha256-WuKKLxx5yuCjOUL+l2bjmvY+ab9Rxekl2IQWLYwqRpQ=",
+        "lastModified": 1767266400,
+        "narHash": "sha256-nZLQu/O5bH83E4LPZyFFhOsUTQJrgPWXDOLfzWJojZo=",
         "owner": "nixos-uconsole",
         "repo": "nixos-uconsole",
-        "rev": "8107d0fd23da2d0ac56e17d43ab8188c92c68b29",
+        "rev": "8dee7fc05fa62c4336ba69fbcbd1c6e1c8549551",
         "type": "github"
       },
       "original": {
