@@ -574,11 +574,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767266400,
-        "narHash": "sha256-nZLQu/O5bH83E4LPZyFFhOsUTQJrgPWXDOLfzWJojZo=",
+        "lastModified": 1767279169,
+        "narHash": "sha256-FyrwzTeOiamV7jf1U2AxI9dnkwp8ahuippA085cNThw=",
         "owner": "nixos-uconsole",
         "repo": "nixos-uconsole",
-        "rev": "8dee7fc05fa62c4336ba69fbcbd1c6e1c8549551",
+        "rev": "0223172d2aa5bb4ec4b86620566a0293f061ab02",
         "type": "github"
       },
       "original": {
@@ -615,6 +615,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lvm2": {
+      "locked": {
+        "lastModified": 1765472234,
+        "narHash": "sha256-9VvC20PJPsleGMewwcWYKGzDIyjckEz8uWmT0vCDYK0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2fbfb1d73d239d2402a8fe03963e37aab15abe8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2fbfb1d73d239d2402a8fe03963e37aab15abe8b",
         "type": "github"
       }
     },
@@ -778,6 +794,7 @@
         "home-manager": "home-manager",
         "nixos-uconsole": "nixos-uconsole",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-lvm2": "nixpkgs-lvm2",
         "opencode": "opencode",
         "xremap": "xremap"
       }
