@@ -160,7 +160,7 @@
       # Animations - simpler for performance
       animations = {
         enabled = true;
-        first_launch_animation = false;
+        # first_launch_animation = false;
 
         bezier = [
           "quick, 0.15, 0, 0.1, 1"
@@ -307,7 +307,11 @@
 
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "battery" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "battery"
+        ];
 
         "hyprland/workspaces" = {
           format = "{id}";
@@ -322,7 +326,13 @@
 
         battery = {
           format = "{icon} {capacity}%";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           format-charging = " {capacity}%";
           states = {
             warning = 30;
@@ -341,7 +351,11 @@
           format = "{icon}";
           format-muted = "󰝟";
           format-icons = {
-            default = [ "󰕿" "󰖀" "󰕾" ];
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
           };
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
