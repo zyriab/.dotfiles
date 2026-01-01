@@ -4,9 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Pinned nixpkgs for lvm2 (workaround for nixpkgs#475910)
-    nixpkgs-lvm2.url = "github:nixos/nixpkgs/2fbfb1d73d239d2402a8fe03963e37aab15abe8b";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,13 +58,6 @@
           inputs.home-manager.nixosModules.default
           ./hosts/xenia/hardware-configuration.nix
           ./hosts/xenia/configuration.nix
-          # Apply overlays for xenia
-          {
-            nixpkgs.overlays = [
-              (import ./overlays/dfu-programmer.nix)
-              (import ./overlays/lvm2.nix inputs) # pin for nixpkgs#475910
-            ];
-          }
         ];
       };
 
