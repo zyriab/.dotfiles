@@ -9,10 +9,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Disable LVM in initrd - we don't use LVM and it causes patchelf errors
-  # with the current nixpkgs (lvm/dmsetup are script wrappers, not ELF binaries)
-  boot.initrd.services.lvm.enable = lib.mkForce false;
-
   networking.hostName = "xenia";
   networking.networkmanager.enable = true;
 

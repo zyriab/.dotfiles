@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Pinned nixpkgs for xenia (aarch64 cross-compile LVM issue in newer versions)
-    nixpkgs-xenia.url = "github:nixos/nixpkgs/2fbfb1d73d239d2402a8fe03963e37aab15abe8b";
+    # Pinned nixpkgs for lvm2 (workaround for nixpkgs#475910)
+    nixpkgs-lvm2.url = "github:nixos/nixpkgs/2fbfb1d73d239d2402a8fe03963e37aab15abe8b";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,9 +26,9 @@
     # xremap for mouse/keyboard remapping
     xremap.url = "github:xremap/nix-flake";
 
-    # uConsole (xenia) support - uses pinned nixpkgs to avoid cross-compile issues
+    # uConsole (xenia) support
     nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
-    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs-xenia";
+    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -61,6 +61,13 @@
           inputs.home-manager.nixosModules.default
           ./hosts/xenia/hardware-configuration.nix
           ./hosts/xenia/configuration.nix
+          # Apply overlays for xenia
+          {
+            nixpkgs.overlays = [
+              (import ./overlays) # dfu-programmer fix
+              (import ./overlays/lvm2.nix inputs) # lvm2 pin for nixpkgs#475910
+            ];
+          }
         ];
       };
 
