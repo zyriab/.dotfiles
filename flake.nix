@@ -30,7 +30,6 @@
 
     # uConsole (xenia) support
     nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
-    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
