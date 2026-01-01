@@ -133,6 +133,15 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Fix dfu-programmer C23 compatibility issue
+  nixpkgs.overlays = [
+    (final: prev: {
+      dfu-programmer = prev.dfu-programmer.overrideAttrs (old: {
+        NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -std=gnu11";
+      });
+    })
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = [ ];
