@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1765589376,
-        "narHash": "sha256-jJHuDLwKsQ5WOYYRjgEl5YOTU/mi1KqI8VwwMYHRMqA=",
+        "lastModified": 1766457259,
+        "narHash": "sha256-bDA65v40vYio865H6UplNHbeYhR7/A1GQqKT1u3suAM=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "ba6d5db9d14dfff5e007bf4e7001bb2f5fc8271a",
+        "rev": "5dfa1244dd5e93dd868719e26d80164dd3b0ba00",
         "type": "github"
       },
       "original": {
@@ -202,11 +202,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765682243,
-        "narHash": "sha256-yeCxFV/905Wr91yKt5zrVvK6O2CVXWRMSrxqlAZnLp0=",
+        "lastModified": 1767104570,
+        "narHash": "sha256-GKgwu5//R+cLdKysZjGqvUEEOGXXLdt93sNXeb2M/Lk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "58bf3ecb2d0bba7bdf363fc8a6c4d49b4d509d03",
+        "rev": "e4e78a2cbeaddd07ab7238971b16468cc1d14daf",
         "type": "github"
       },
       "original": {
@@ -517,10 +517,12 @@
     "nixos-images": {
       "inputs": {
         "nixos-stable": [
+          "nixos-uconsole",
           "nixos-raspberrypi",
           "nixpkgs"
         ],
         "nixos-unstable": [
+          "nixos-uconsole",
           "nixos-raspberrypi",
           "nixpkgs"
         ]
@@ -546,31 +548,52 @@
         "flake-compat": "flake-compat",
         "nixos-images": "nixos-images",
         "nixpkgs": [
+          "nixos-uconsole",
           "nixpkgs"
         ]
       },
       "locked": {
         "lastModified": 1765673398,
         "narHash": "sha256-vgaFfxB2c0Nd+fGyMpxtJM7+XVT5H8bu3e6TmHfA+xw=",
-        "owner": "robertjakub",
+        "owner": "nvmd",
         "repo": "nixos-raspberrypi",
         "rev": "f8900910f63477626010938da8d849ba2cc3d011",
         "type": "github"
       },
       "original": {
-        "owner": "robertjakub",
-        "ref": "develop",
+        "owner": "nvmd",
         "repo": "nixos-raspberrypi",
+        "type": "github"
+      }
+    },
+    "nixos-uconsole": {
+      "inputs": {
+        "nixos-raspberrypi": "nixos-raspberrypi",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767255677,
+        "narHash": "sha256-WuKKLxx5yuCjOUL+l2bjmvY+ab9Rxekl2IQWLYwqRpQ=",
+        "owner": "nixos-uconsole",
+        "repo": "nixos-uconsole",
+        "rev": "8107d0fd23da2d0ac56e17d43ab8188c92c68b29",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos-uconsole",
+        "repo": "nixos-uconsole",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1765425892,
-        "narHash": "sha256-jlQpSkg2sK6IJVzTQBDyRxQZgKADC2HKMRfGCSgNMHo=",
+        "lastModified": 1766314097,
+        "narHash": "sha256-laJftWbghBehazn/zxVJ8NdENVgjccsWAdAqKXhErrM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5d6bdbddb4695a62f0d00a3620b37a15275a5093",
+        "rev": "306ea70f9eb0fb4e040f8540e2deab32ed7e2055",
         "type": "github"
       },
       "original": {
@@ -597,11 +620,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1765472234,
-        "narHash": "sha256-9VvC20PJPsleGMewwcWYKGzDIyjckEz8uWmT0vCDYK0=",
+        "lastModified": 1767116409,
+        "narHash": "sha256-5vKw92l1GyTnjoLzEagJy5V5mDFck72LiQWZSOnSicw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2fbfb1d73d239d2402a8fe03963e37aab15abe8b",
+        "rev": "cad22e7d996aea55ecab064e84834289143e44a0",
         "type": "github"
       },
       "original": {
@@ -707,40 +730,16 @@
         "type": "github"
       }
     },
-    "oom-hardware": {
-      "inputs": {
-        "nixos-raspberrypi": [
-          "nixos-raspberrypi"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1765965006,
-        "narHash": "sha256-vknTskzJaYivv1DJ6isPzm5KZgL4JfxYT2LfEXDTX9U=",
-        "owner": "robertjakub",
-        "repo": "oom-hardware",
-        "rev": "330aa09757bc5848cd8b697d318312a526c886c0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "robertjakub",
-        "ref": "devel",
-        "repo": "oom-hardware",
-        "type": "github"
-      }
-    },
     "opencode": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1762050027,
-        "narHash": "sha256-V+O37OzawdXcddXNOQBCbdO3ifzxMJo6g8U8MSeG2bE=",
+        "lastModified": 1766754166,
+        "narHash": "sha256-anLh9N8KLqssOMd+xooagd/kLhoU4BChMfEToWmntCg=",
         "owner": "aodhanhayter",
         "repo": "opencode-flake",
-        "rev": "dbf80731ff6ccab5c0cc02dd5fe82f82178095a7",
+        "rev": "57574d4c2d550b24487cb810e2cfcb7c259b0357",
         "type": "github"
       },
       "original": {
@@ -777,9 +776,8 @@
       "inputs": {
         "claude-code": "claude-code",
         "home-manager": "home-manager",
-        "nixos-raspberrypi": "nixos-raspberrypi",
+        "nixos-uconsole": "nixos-uconsole",
         "nixpkgs": "nixpkgs_2",
-        "oom-hardware": "oom-hardware",
         "opencode": "opencode",
         "xremap": "xremap"
       }
@@ -891,11 +889,11 @@
         "xremap": "xremap_2"
       },
       "locked": {
-        "lastModified": 1765504354,
-        "narHash": "sha256-Nw+pODpVmU+M00CRUSKMMaKaK1VEvbL9UJtcchmdemY=",
+        "lastModified": 1767060623,
+        "narHash": "sha256-5RwmGhhTJ8r6X6uV81rvyO2BvcRN5Gsi+kaaFfh+TNw=",
         "owner": "xremap",
         "repo": "nix-flake",
-        "rev": "2162570e24b5df19df053bf7b3b4817a850dcb8a",
+        "rev": "2b378b60e964671cdd3284ce2ab0ec379d811a46",
         "type": "github"
       },
       "original": {
@@ -907,16 +905,16 @@
     "xremap_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1765400488,
-        "narHash": "sha256-QkrZltxJf5GhWczhBj3K8G6LRqlYEbZjhMtEbY8bdsk=",
+        "lastModified": 1766606475,
+        "narHash": "sha256-FPZ4iQA/vVZGzbO8i8lTK8i9A3zs9BLqMvTMeAVv9rQ=",
         "owner": "k0kubun",
         "repo": "xremap",
-        "rev": "95289472fc25b0ca0b0bf655f1ffb88fed7b014f",
+        "rev": "cdc744d873c19899ef21f329c4305b4b5e53d459",
         "type": "github"
       },
       "original": {
         "owner": "k0kubun",
-        "ref": "v0.14.6",
+        "ref": "v0.14.8",
         "repo": "xremap",
         "type": "github"
       }
