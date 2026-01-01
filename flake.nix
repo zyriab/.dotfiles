@@ -36,7 +36,15 @@
         # Exposes all flake inputs to our modules...
         # If I understand correctly, that means we don't have to add
         # our modules to the `modules` array below
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+          # Apply overlays to nixpkgs
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+            overlays = [ (import ./overlays) ];
+          };
+        };
         modules = [
           ./hosts/x1/configuration.nix
           inputs.home-manager.nixosModules.default
