@@ -53,6 +53,9 @@
   services.upower.enable = true;
   powerManagement.enable = true;
 
+  # 4G module support (optional expansion card)
+  hardware.uc-4g.enable = true;
+
   # Home Manager
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
