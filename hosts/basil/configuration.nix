@@ -36,7 +36,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocales = [
     "en_US.UTF-8/UTF-8"
@@ -129,6 +129,8 @@
       };
     };
   };
+
+  services.fprintd.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
