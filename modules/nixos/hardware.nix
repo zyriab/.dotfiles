@@ -50,7 +50,7 @@
     vial
   ];
 
-  # xremap for trackball button remapping
+  # xremap for keyboard and trackball remapping
   services.xremap = {
     enable = true;
     withWlroots = true; # For Hyprland support
@@ -58,6 +58,17 @@
     watch = true; # Watch for new devices (helps with BT reconnection)
 
     config.modmap = [
+      {
+        name = "Global";
+        remap = {
+          # Caps Lock: Escape on tap, Ctrl on hold
+          CapsLock = {
+            held = "Ctrl_L";
+            alone = "Esc";
+            alone_timeout_millis = 200;
+          };
+        };
+      }
       {
         name = "Kensington Trackball";
         remap = {
