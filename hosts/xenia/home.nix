@@ -21,10 +21,24 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    foot           # Lightweight terminal for small screen
     legcord        # ARM-compatible Discord client
     slacky         # Unofficial Slack for ARM64
   ];
+
+  # Foot terminal - larger font for small screen readability
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        font = "monospace:size=12";
+        pad = "8x8";
+      };
+      colors = {
+        background = "0d1117";
+        foreground = "c9d1d9";
+      };
+    };
+  };
 
   programs.home-manager.enable = true;
 }
