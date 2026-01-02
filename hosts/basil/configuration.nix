@@ -1,0 +1,180 @@
+{
+  pkgs,
+  inputs,
+  ...
+}:
+
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/nixos/audio.nix
+    ../../modules/nixos/hardware.nix
+    ../../modules/nixos/apps.nix
+    ../../modules/nixos/gaming.nix
+    ../../modules/nixos/fonts.nix
+    ../../modules/nixos/browsers.nix
+    inputs.xremap.nixosModules.default
+  ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # Lid switch behavior when on AC power
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+
+  # Boot loader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "basil";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Europe/Brussels";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocales = [
+    "en_US.UTF-8/UTF-8"
+    "en_GB.UTF-8/UTF-8"
+    "fr_BE.UTF-8/UTF-8"
+  ];
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "fr_BE.UTF-8";
+    LC_IDENTIFICATION = "fr_BE.UTF-8";
+    LC_MEASUREMENT = "fr_BE.UTF-8";
+    LC_MONETARY = "fr_BE.UTF-8";
+    LC_NAME = "fr_BE.UTF-8";
+    LC_NUMERIC = "fr_BE.UTF-8";
+    LC_PAPER = "fr_BE.UTF-8";
+    LC_TELEPHONE = "fr_BE.UTF-8";
+    LC_TIME = "en_GB.UTF-8";
+  };
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+    options = "eurosign:e"; # AltGr+E for Euro sign
+  };
+
+  console.useXkbConfig = true;
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Define a user account.
+  users.users.lab = {
+    isNormalUser = true;
+    description = "lab";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "dialout"
+      "video"
+    ];
+    packages = [ ];
+    shell = pkgs.zsh;
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "lab" = import ./home.nix;
+    };
+  };
+
+  security.sudo.extraRules = [
+    {
+      users = [ "lab" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [
+            "NOPASSWD"
+            "SETENV"
+          ];
+        }
+      ];
+    }
+  ];
+
+  virtualisation.docker = {
+    enable = false;
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+      daemon.settings = {
+        dns = [
+          "8.8.8.8"
+          "8.8.4.4"
+          "1.1.1.1"
+        ];
+      };
+    };
+  };
+
+  # Display manager for Hyprland (no GNOME)
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  environment.systemPackages = [ ];
+
+  programs = {
+    hyprland.enable = true;
+
+    nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "ghostty";
+    };
+
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc
+        prettierd
+      ];
+    };
+
+    zsh.enable = true;
+  };
+
+  services.kmscon = {
+    enable = true;
+    useXkbConfig = true;
+    fonts = [
+      {
+        name = "Fira Mono";
+        package = pkgs.fira;
+      }
+    ];
+  };
+
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
+    };
+  };
+
+  system.stateVersion = "25.11";
+
+}
