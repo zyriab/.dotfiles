@@ -69,9 +69,9 @@
   services.printing.enable = true;
 
   # Define a user account.
-  users.users.lab = {
+  users.users.zyr = {
     isNormalUser = true;
-    description = "lab";
+    description = "zyr";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -85,18 +85,17 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "lab" = import ./home.nix;
+      "zyr" = import ./home.nix;
     };
   };
 
   security.sudo.extraRules = [
     {
-      users = [ "lab" ];
+      users = [ "zyr" ];
       commands = [
         {
           command = "ALL";
           options = [
-            "NOPASSWD"
             "SETENV"
           ];
         }
@@ -125,7 +124,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
         user = "greeter";
       };
     };
