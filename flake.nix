@@ -35,14 +35,11 @@
   outputs =
     { nixpkgs, ... }@inputs:
     {
-      nixosConfigurations.x1 = nixpkgs.lib.nixosSystem {
+      # Framework 16 AMD (basil)
+      nixosConfigurations.basil = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Exposes all flake inputs to our modules...
-        # If I understand correctly, that means we don't have to add
-        # our modules to the `modules` array below
         specialArgs = {
           inherit inputs;
-          # Apply overlays to nixpkgs
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
@@ -50,7 +47,7 @@
           };
         };
         modules = [
-          ./hosts/x1/configuration.nix
+          ./hosts/basil/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
       };
@@ -71,6 +68,26 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/germain/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+
+      nixosConfigurations.x1 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        # Exposes all flake inputs to our modules...
+        # If I understand correctly, that means we don't have to add
+        # our modules to the `modules` array below
+        specialArgs = {
+          inherit inputs;
+          # Apply overlays to nixpkgs
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+            overlays = [ (import ./overlays/dfu-programmer.nix) ];
+          };
+        };
+        modules = [
+          ./hosts/x1/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
       };
