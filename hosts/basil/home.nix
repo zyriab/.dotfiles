@@ -15,8 +15,8 @@
     ../../modules/home/claude-code.nix
   ];
 
-  home.username = "lab";
-  home.homeDirectory = "/home/lab";
+  home.username = "zyr";
+  home.homeDirectory = "/home/zyr";
 
   home.stateVersion = "25.11";
 
