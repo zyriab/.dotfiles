@@ -37,10 +37,11 @@
 
   };
 
-  # QMK keyboard support
+  # QMK keyboard support and utilities
   environment.systemPackages = with pkgs; [
     qmk
     evtest # For testing input devices
+    wl-clipboard # Wayland clipboard utilities
   ];
 
   services.udev.packages = with pkgs; [
