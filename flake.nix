@@ -30,6 +30,9 @@
 
     # uConsole (xenia) support
     nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
+
+    # Hardware-specific configurations
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
