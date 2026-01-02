@@ -9,6 +9,9 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Suppress kernel messages on console (fixes tuigreet UI)
+  boot.consoleLogLevel = 0;
+
   networking.hostName = "xenia";
   networking.networkmanager.enable = true;
 
