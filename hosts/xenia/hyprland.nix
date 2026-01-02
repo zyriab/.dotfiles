@@ -160,7 +160,6 @@
       # Animations - simpler for performance
       animations = {
         enabled = true;
-        # first_launch_animation = false;
 
         bezier = [
           "quick, 0.15, 0, 0.1, 1"
