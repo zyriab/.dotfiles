@@ -125,16 +125,16 @@
         "swaync"
       ];
 
-      # Environment
+      # Environment - larger cursor for small screen readability
       env = [
-        "XCURSOR_SIZE,20"
+        "XCURSOR_SIZE,32"
       ];
 
-      # General - tighter for small screen
+      # General - balanced for small screen readability
       general = {
-        gaps_in = 2;
-        gaps_out = 4;
-        border_size = 1;
+        gaps_in = 3;
+        gaps_out = 6;
+        border_size = 2;
         "col.active_border" = "rgba(79c0ffff)";
         "col.inactive_border" = "rgba(0d1117aa)";
         resize_on_border = true;
@@ -294,15 +294,15 @@
     };
   };
 
-  # Waybar config for uConsole
+  # Waybar config for uConsole - larger for readability
   programs.waybar = {
     enable = true;
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 24;
-        spacing = 4;
+        height = 32;
+        spacing = 6;
 
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
@@ -364,7 +364,7 @@
     style = ''
       * {
         font-family: "monospace";
-        font-size: 12px;
+        font-size: 14px;
         min-height: 0;
       }
 
@@ -374,7 +374,7 @@
       }
 
       #workspaces button {
-        padding: 0 4px;
+        padding: 0 8px;
         color: #8b949e;
         border-bottom: 2px solid transparent;
       }
@@ -385,7 +385,7 @@
       }
 
       #clock, #battery, #network, #pulseaudio {
-        padding: 0 8px;
+        padding: 0 10px;
       }
 
       #battery.warning {
