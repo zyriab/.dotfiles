@@ -24,7 +24,7 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/mnt" =
+  fileSystems."/mnt/data" =
     { device = "/dev/disk/by-uuid/6b2033c8-e66b-47de-9823-0878647da159";
       fsType = "ext4";
     };
