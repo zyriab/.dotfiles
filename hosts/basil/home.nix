@@ -14,6 +14,9 @@
     ../../modules/home/fuzzel.nix
     ../../modules/home/claude-code.nix
     ../../modules/home/automount.nix
+    ../../modules/home/chromium.nix
+    ../../modules/home/zen-browser.nix
+    ../../modules/home/electron-wayland-fixes.nix
   ];
 
   home.username = "zyr";

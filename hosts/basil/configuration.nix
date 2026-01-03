@@ -142,6 +142,15 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # 1Password browser integration - allow Zen browser
+  environment.etc."1password/custom_allowed_browsers" = {
+    text = ''
+      zen
+      chromium
+    '';
+    mode = "0644";
+  };
+
   environment.systemPackages = [ ];
 
   programs = {
