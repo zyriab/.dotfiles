@@ -46,6 +46,10 @@
         disable_loading_bar = true;
       };
 
+      auth = {
+        fingerprint.enabled = true;
+      };
+
       background = [
         {
           monitor = "";
