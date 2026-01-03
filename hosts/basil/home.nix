@@ -13,6 +13,7 @@
     ../../modules/home/hyprland.nix
     ../../modules/home/fuzzel.nix
     ../../modules/home/claude-code.nix
+    ../../modules/home/automount.nix
   ];
 
   home.username = "zyr";

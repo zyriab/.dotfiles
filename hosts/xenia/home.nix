@@ -10,6 +10,7 @@
     ../../modules/home/fuzzel.nix
     ../../modules/home/dev.nix
     ../../modules/home/claude-code.nix
+    ../../modules/home/automount.nix
     # Custom hyprland config for uConsole
     ./hyprland.nix
   ];
@@ -21,8 +22,8 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    legcord        # ARM-compatible Discord client
-    slacky         # Unofficial Slack for ARM64
+    legcord # ARM-compatible Discord client
+    slacky # Unofficial Slack for ARM64
   ];
 
   # Foot terminal - larger font for small screen readability
