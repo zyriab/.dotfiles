@@ -49,6 +49,9 @@
   # GPU/Mesa drivers
   hardware.graphics.enable = true;
 
+  # Used for removable media automounting
+  services.udisks2.enable = true;
+
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
