@@ -37,6 +37,9 @@
 
   };
 
+  # Used for removable media automounting
+  services.udisks2.enable = true;
+
   # QMK keyboard support and utilities
   environment.systemPackages = with pkgs; [
     qmk
