@@ -125,16 +125,20 @@
     enable = true;
     settings =
       let
-        wallpaper = "~/Pictures/Wallpapers/blue-ridge-mountains.jpg";
+        wallpaper = "/mnt/data/Pictures/Wallpapers/snowy-canopy.jpg";
+        wallpaper2 = "~/Pictures/Wallpapers/blue-ridge-mountains.jpg";
       in
       {
-        preload = [ wallpaper ];
+        preload = [
+          wallpaper
+          wallpaper2
+        ];
         wallpaper = [
           "eDP-2, ${wallpaper}"
 
           # Legacy setup
-          "eDP-1, ${wallpaper}"
-          "HDMI-A-2, ${wallpaper}"
+          "eDP-1, ${wallpaper2}"
+          "HDMI-A-2, ${wallpaper2}"
         ];
       };
   };
