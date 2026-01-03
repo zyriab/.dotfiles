@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -7,7 +13,10 @@
     ../../modules/nixos/browsers.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Suppress kernel messages on console (fixes tuigreet UI)
   boot.consoleLogLevel = 0;
@@ -24,7 +33,12 @@
 
     zyr = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "video"
+        "audio"
+      ];
       initialPassword = "changeme";
       shell = pkgs.zsh;
     };
@@ -46,7 +60,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland";
         user = "greeter";
       };
     };
