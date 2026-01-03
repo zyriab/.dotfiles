@@ -236,7 +236,8 @@
       #window,
       #mpris,
       #network,
-      #bluetooth {
+      #bluetooth,
+      #battery {
           padding: 0.3rem 0.6rem;
           margin: 0.4rem 0.25rem;
           border-radius: 6px;
@@ -298,11 +299,11 @@
       }
 
       #battery {
-          color: #7ee787;
+          color: #58a6ff;
       }
 
       #battery.charging {
-          color: #7ee787;
+          color: #39c5cf;
       }
 
       #battery.warning:not(.charging) {
@@ -310,7 +311,7 @@
       }
 
       #battery.critical:not(.charging) {
-          color: #f85149;
+          color: #ec8e2c;
       }
 
       #custom-logo {
