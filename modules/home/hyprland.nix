@@ -130,6 +130,9 @@
       {
         preload = [ wallpaper ];
         wallpaper = [
+          "eDP-2, ${wallpaper}"
+
+          # Legacy setup
           "eDP-1, ${wallpaper}"
           "HDMI-A-2, ${wallpaper}"
         ];
