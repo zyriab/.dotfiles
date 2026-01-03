@@ -11,6 +11,8 @@
     ../../modules/home/dev.nix
     ../../modules/home/claude-code.nix
     ../../modules/home/automount.nix
+    ../../modules/home/chromium.nix
+    ../../modules/home/electron-wayland-fixes.nix
     # Custom hyprland config for uConsole
     ./hyprland.nix
   ];
