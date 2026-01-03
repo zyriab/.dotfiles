@@ -97,7 +97,7 @@
     enable = true;
     settings =
       let
-        wallpaper = "~/Pictures/Wallpapers/wallpaper.jpg";
+        wallpaper = "~/Pictures/Wallpapers/snowy-canopy.jpg";
       in
       {
         preload = [ wallpaper ];
