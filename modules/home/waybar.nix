@@ -27,6 +27,7 @@
         ];
 
         modules-right = [
+          "battery"
           "network"
           "bluetooth"
           "pulseaudio"
@@ -142,6 +143,19 @@
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
           on-click = "blueman-manager";
+        };
+
+        battery = {
+          interval = 10;
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon} {capacity}%";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󰚥 {capacity}%";
+          format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          tooltip-format = "{timeTo}\n{power} W";
         };
 
         "custom/sep" = {
@@ -281,6 +295,22 @@
 
       #bluetooth.disabled {
           color: #8b949e;
+      }
+
+      #battery {
+          color: #7ee787;
+      }
+
+      #battery.charging {
+          color: #7ee787;
+      }
+
+      #battery.warning:not(.charging) {
+          color: #d29922;
+      }
+
+      #battery.critical:not(.charging) {
+          color: #f85149;
       }
 
       #custom-logo {
