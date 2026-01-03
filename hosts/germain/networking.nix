@@ -13,17 +13,32 @@
     interfaces = {
       eth0 = {
         ipv4.addresses = [
-          { address = "159.69.0.0"; prefixLength = 32; }
+          {
+            address = "159.69.0.0";
+            prefixLength = 32;
+          }
         ];
         ipv6.addresses = [
-          { address = "2a01:4f8:1c1a:a939::1"; prefixLength = 64; }
-          { address = "fe80::9000:6ff:fef0:d735"; prefixLength = 64; }
+          {
+            address = "2a01:4f8:1c1a:a939::1";
+            prefixLength = 64;
+          }
+          {
+            address = "fe80::9000:6ff:fef0:d735";
+            prefixLength = 64;
+          }
         ];
         ipv4.routes = [
-          { address = "172.31.1.1"; prefixLength = 32; }
+          {
+            address = "172.31.1.1";
+            prefixLength = 32;
+          }
         ];
         ipv6.routes = [
-          { address = "fe80::1"; prefixLength = 128; }
+          {
+            address = "fe80::1";
+            prefixLength = 128;
+          }
         ];
       };
     };

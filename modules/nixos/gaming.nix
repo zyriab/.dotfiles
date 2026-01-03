@@ -5,6 +5,5 @@
     winetricks
   ];
 
-
   programs.steam.enable = true;
 }
