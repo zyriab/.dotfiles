@@ -119,7 +119,7 @@
     };
   };
 
-  # Display manager for Hyprland (no GNOME)
+  # Display manager for Hyprland
   services.greetd = {
     enable = true;
     settings = {
@@ -130,7 +130,14 @@
     };
   };
 
+  # Fingerprint reader
   services.fprintd.enable = true;
+
+  # Firwmare update
+  services.fwupd.enable = true;
+
+  # Power management
+  services.power-profiles-daemon.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -145,6 +152,7 @@
       terminal = "ghostty";
     };
 
+    # TODO: Check if nix-ld is still needed
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
