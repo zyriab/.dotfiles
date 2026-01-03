@@ -93,11 +93,24 @@
 
   services.swaync.enable = true;
 
+  services.hyprpaper = {
+    enable = true;
+    settings =
+      let
+        wallpaper = "~/Pictures/Wallpapers/wallpaper.jpg";
+      in
+      {
+        preload = [ wallpaper ];
+        wallpaper = [ "DSI-1, ${wallpaper}" ];
+      };
+  };
+
   home.packages = with pkgs; [
     waybar
     playerctl
     hyprshot
     hyprlock
+    hyprpaper
     brightnessctl
     swaynotificationcenter
     libnotify
