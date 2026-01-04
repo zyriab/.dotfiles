@@ -137,6 +137,9 @@
   # Fingerprint reader
   services.fprintd.enable = true;
 
+  # Allow both password and fingerprint for sudo
+  security.pam.services.sudo.fprintAuth = true;
+
   # Firwmare update
   services.fwupd.enable = true;
 
