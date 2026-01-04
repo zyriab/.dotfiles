@@ -62,34 +62,37 @@
 
   # Chromium preferences (user-level settings)
   # Note: Some of these may be overwritten by the browser on first run
-  xdg.configFile."chromium/Default/Preferences".text = builtins.toJSON {
-    # Spellcheck
-    spellcheck = {
-      dictionaries = [
-        "en-US"
-        "fr"
-        "es"
-      ];
-      use_spelling_service = false;
-    };
+  xdg.configFile."chromium/Default/Preferences" = {
+    force = true;
+    text = builtins.toJSON {
+      # Spellcheck
+      spellcheck = {
+        dictionaries = [
+          "en-US"
+          "fr"
+          "es"
+        ];
+        use_spelling_service = false;
+      };
 
-    # Browser settings
-    browser = {
-      show_home_button = false;
-      enable_spellchecking = true;
-    };
+      # Browser settings
+      browser = {
+        show_home_button = false;
+        enable_spellchecking = true;
+      };
 
-    # Extensions in incognito - needs to be set manually per extension
-    # This is just a hint, actual setting requires user interaction
+      # Extensions in incognito - needs to be set manually per extension
+      # This is just a hint, actual setting requires user interaction
 
-    # Accessibility
-    accessibility = {
-      speak_page_summary_on_load = false;
-    };
+      # Accessibility
+      accessibility = {
+        speak_page_summary_on_load = false;
+      };
 
-    # Download settings
-    download = {
-      prompt_for_download = true;
+      # Download settings
+      download = {
+        prompt_for_download = true;
+      };
     };
   };
 }
