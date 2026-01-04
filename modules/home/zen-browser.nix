@@ -2,7 +2,7 @@
 {
   # Zen Browser via flake (github:0xc000022070/zen-browser-flake)
   # Add zen to 1Password allowed browsers: echo "zen" | sudo tee -a /etc/1password/custom_allowed_browsers
-  home.packages = [ inputs.zen-browser.packages.${pkgs.system}.default ];
+  home.packages = [ inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 
   # Zen Browser uses Firefox's policy system
   # Policies are placed in the browser's distribution directory
