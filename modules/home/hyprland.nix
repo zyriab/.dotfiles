@@ -209,7 +209,7 @@
         "$menu" = "fuzzel";
         "$lockscreen" = "hyprlock";
         # Ozone thing is needed to fix some rendering issues
-        "$browser" = "chromium --ozone-platform-hint=auto";
+        "$browser" = "zen";
         "$notes" = "obsidian";
         "$mainMod" = "SUPER";
 
