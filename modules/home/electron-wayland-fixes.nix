@@ -81,12 +81,4 @@
     };
   };
 
-  # Steam scaling fix for HiDPI/Wayland
-  # Steam runs via XWayland and needs explicit scaling factor
-  # Adjust STEAM_FORCE_DESKTOPUI_SCALING to match your display scale
-  home.sessionVariables = {
-    # Force Steam UI scaling (1.0 = 100%, 1.5 = 150%, 2.0 = 200%)
-    # Set to 1.0 for no scaling, adjust if using fractional scaling
-    STEAM_FORCE_DESKTOPUI_SCALING = "1.0";
-  };
 }
