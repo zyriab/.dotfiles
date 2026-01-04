@@ -10,6 +10,8 @@
   ];
 
   hardware = {
+    opengl.enable = true;
+
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -34,8 +36,9 @@
       enable = true;
       enableGraphical = true;
     };
-
   };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Used for removable media automounting
   services.udisks2.enable = true;
