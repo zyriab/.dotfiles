@@ -445,7 +445,7 @@
           ", XF86AudioPrev, exec, playerctl previous"
           ", XF86PowerOff, exec, loginctl lock-session"
           ", switch:on:Lid Switch, exec, hyprctl keyword monitor eDP-2, disable"
-          ", switch:off:Lid Switch, exec, hyprctl keyword monitor eDP-2, preferred, auto, 1"
+          ", switch:off:Lid Switch, exec, hyprctl keyword monitor eDP-2, 2560x1600@165, 0x0, 1.6"
         ];
 
         # Locked + repeating binds (for volume/brightness)
