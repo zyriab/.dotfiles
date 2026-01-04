@@ -145,6 +145,7 @@
 
   # Power management
   services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
