@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.file.".claude/settings.json".text = builtins.toJSON {
-    model = "sonnet";
     statusLine = {
       type = "command";
       command = "bash ~/.claude/statusline-command.sh";
