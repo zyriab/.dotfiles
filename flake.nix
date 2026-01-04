@@ -56,6 +56,9 @@
         modules = [
           ./hosts/basil/configuration.nix
           inputs.home-manager.nixosModules.default
+          {
+            nixpkgs.config.allowUnfree = true;
+          }
         ];
       };
 
@@ -85,6 +88,9 @@
         modules = [
           ./hosts/x1/configuration.nix
           inputs.home-manager.nixosModules.default
+          {
+            nixpkgs.config.allowUnfree = true;
+          }
         ];
       };
     };
