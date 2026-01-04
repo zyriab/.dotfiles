@@ -264,6 +264,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kernel": {
+      "locked": {
+        "lastModified": 1762604901,
+        "narHash": "sha256-Pr2jpryIaQr9Yx8p6QssS03wqB6UifnnLr3HJw9veDw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f6b44b2401525650256b977063dbcf830f762369",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f6b44b2401525650256b977063dbcf830f762369",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1765674936,
@@ -385,6 +401,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-uconsole": "nixos-uconsole",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-kernel": "nixpkgs-kernel",
         "opencode": "opencode",
         "xremap": "xremap",
         "zen-browser": "zen-browser"
