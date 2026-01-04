@@ -137,8 +137,6 @@
       '';
   };
 
-  };
-
   services.swaync.enable = true;
 
   # Custom systemd service for hyprdim
