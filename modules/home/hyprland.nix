@@ -126,7 +126,7 @@
     settings =
       let
         wallpaper = "/mnt/data/Pictures/Wallpapers/snowy-canopy.jpg";
-        wallpaper2 = "~/Pictures/Wallpapers/blue-ridge-mountains.jpg";
+        wallpaper2 = "/mnt/data/Pictures/Wallpapers/blue-ridge-mountains.jpg";
       in
       {
         preload = [
