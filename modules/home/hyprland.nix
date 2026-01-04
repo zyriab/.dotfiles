@@ -138,6 +138,13 @@
       '';
   };
 
+  # Initial monitors.conf for hyprdynamicmonitors
+  xdg.configFile."hypr/monitors.conf" = {
+    text = ''
+      monitor = eDP-2, 2560x1600@165, 0x0, 1.6
+    '';
+  };
+
   services.swaync.enable = true;
 
   # Custom systemd service for hyprdim
@@ -183,19 +190,18 @@
     #   inputs.split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
     # ];
 
-    settings =
-      let
-        # Monitor configuration variables
-        # laptopMonitorConfig = "eDP-1,2560x1440,1920x1000,1.6";
-        laptopMonitorConfig = "eDP-1,disable";
+    extraConfig = ''
+      source = ~/.config/hypr/monitors.conf
+    '';
 
-      in
-      {
-        # Monitor configuration
-        monitor = [
-          laptopMonitorConfig
-          "HDMI-A-2,1920x1080@60.00,0x0,1.00"
-        ];
+    settings = {
+        # Fallback monitor config (hyprdynamicmonitors overrides via monitors.conf)
+        monitor = [ ", preferred, auto, 1" ];
+
+        # Force native resolution for games (no scaling for XWayland)
+        xwayland = {
+          force_zero_scaling = true;
+        };
 
         # Program variables
         "$terminal" = "ghostty";
