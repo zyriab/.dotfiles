@@ -447,6 +447,7 @@
           ", XF86AudioPause, exec, playerctl play-pause"
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86PowerOff, exec, hyprlock & sleep 0.5 && hyprctl dispatch dpms off"
         ];
 
         # Locked + repeating binds (for volume/brightness)
