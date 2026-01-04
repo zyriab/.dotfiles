@@ -21,8 +21,10 @@
     "flakes"
   ];
 
-  # Lid switch behavior when on AC power
-  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitchExternalPower = "ignore";
+    HandlePowerKey = "lock";
+  };
 
   # Boot loader
   boot.loader.systemd-boot.enable = true;
