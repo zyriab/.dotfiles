@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-kernel,
   inputs,
   ...
 }:
@@ -29,6 +30,7 @@
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs-kernel.linuxPackages_6_17;
 
   networking.hostName = "basil";
 
