@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Pinned nixpkgs for kernel 6.17 (avoiding amdgpu bugs in 6.18+)
+    nixpkgs-kernel.url = "github:nixos/nixpkgs/f6b44b2401525650256b977063dbcf830f762369";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +52,7 @@
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
-          pkgs = import nixpkgs {
+          pkgs-kernel = import inputs.nixpkgs-kernel {
             system = "x86_64-linux";
           };
         };
