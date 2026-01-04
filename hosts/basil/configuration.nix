@@ -24,7 +24,7 @@
 
   services.logind.settings.Login = {
     HandleLidSwitchExternalPower = "ignore";
-    HandlePowerKey = "lock";
+    HandlePowerKey = "ignore";
   };
 
   # Boot loader
