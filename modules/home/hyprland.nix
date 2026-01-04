@@ -121,26 +121,22 @@
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings =
+  services.hyprpaper.enable = true;
+
+  xdg.configFile."hypr/hyprpaper.conf" = {
+    force = true;
+    text =
       let
         wallpaper = "/mnt/data/Pictures/Wallpapers/snowy-canopy.jpg";
-        wallpaper2 = "/mnt/data/Pictures/Wallpapers/blue-ridge-mountains.jpg";
       in
-      {
-        preload = [
-          wallpaper
-          wallpaper2
-        ];
-        wallpaper = [
-          "eDP-2, ${wallpaper}"
+      ''
+        wallpaper {
+          monitor = eDP-2
+          path = ${wallpaper}
+        }
+      '';
+  };
 
-          # Legacy setup
-          "eDP-1, ${wallpaper2}"
-          "HDMI-A-2, ${wallpaper2}"
-        ];
-      };
   };
 
   services.swaync.enable = true;
