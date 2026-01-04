@@ -130,6 +130,7 @@
         wallpaper = "/mnt/data/Pictures/Wallpapers/snowy-canopy.jpg";
       in
       ''
+        splash = false
         wallpaper {
           monitor = eDP-2
           path = ${wallpaper}
