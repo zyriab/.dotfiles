@@ -5,7 +5,7 @@
     settings = {
       main = {
         font = "FiraMono Nerd Font Mono:size=11";
-        dpi-aware = "yes";
+        dpi-aware = "no";
         prompt = " > ";
         icon-theme = "hicolor";
         terminal = "ghostty";
