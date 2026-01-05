@@ -2,6 +2,7 @@
   pkgs,
   pkgs-kernel,
   inputs,
+  firefox-addons,
   ...
 }:
 
@@ -87,7 +88,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs firefox-addons; };
     users = {
       "zyr" = import ./home.nix;
     };

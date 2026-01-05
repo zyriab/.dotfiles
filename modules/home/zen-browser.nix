@@ -1,69 +1,32 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, firefox-addons, ... }:
+let
+  addons = firefox-addons;
+
+  # Custom addon not in rycee's collection
+  prod = pkgs.fetchFirefoxAddon {
+    name = "prod";
+    url = "https://addons.mozilla.org/firefox/downloads/latest/prodextension/latest.xpi";
+    hash = "sha256-u8CZ0fn1EmBnwVyd8T7Y81cUnClLePBvcCMnZAi76Nk=";
+  };
+in
 {
-  # Zen Browser via flake (github:0xc000022070/zen-browser-flake)
+  imports = [ inputs.zen-browser.homeModules.beta ];
+
+  # Force overwrite existing profiles.ini
+  home.file.".zen/profiles.ini".force = true;
+
   # Add zen to 1Password allowed browsers: echo "zen" | sudo tee -a /etc/1password/custom_allowed_browsers
-  home.packages = [ inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+  programs.zen-browser = {
+    enable = true;
 
-  # Zen Browser uses Firefox's policy system
-  # Policies are placed in the browser's distribution directory
-  xdg.configFile."zen/policies/policies.json".text = builtins.toJSON {
     policies = {
-      # Extensions (force-installed)
-      ExtensionSettings = {
-        # 1Password
-        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
-          default_area = "navbar";
-        };
-        # Dark Reader
-        "addon@darkreader.org" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-        };
-        # uBlock Origin (full version, not Lite)
-        "uBlock0@raymondhill.net" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-        };
-        # Vimium
-        "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-        };
-        # React Developer Tools
-        "@react-devtools" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/react-devtools/latest.xpi";
-        };
-        # Tab Session Manager
-        "Tab-Session-Manager@piro.sakura.ne.jp" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-session-manager/latest.xpi";
-        };
-      };
-
       # Disable built-in password manager (using 1Password)
       PasswordManagerEnabled = false;
       OfferToSaveLogins = false;
       OfferToSaveLoginsDefault = false;
 
-      # Disable form autofill
-      DisableFormHistory = true;
-
-      # Search engine
-      SearchEngines = {
-        Default = "Google";
-        Remove = [
-          "Bing"
-          "Amazon"
-          "eBay"
-        ];
-      };
-
-      # Homepage/Startup
       Homepage = {
-        StartPage = "none"; # New tab page
+        StartPage = "none";
       };
 
       # Hardware acceleration
@@ -72,73 +35,81 @@
       # Bookmarks bar
       DisplayBookmarksToolbar = "never";
 
-      # Don't check if default browser
-      DontCheckDefaultBrowser = true;
-
-      # Disable telemetry
+      AutofillAddressEnabled = true;
+      AutofillCreditCardEnabled = false;
+      DisableAppUpdate = true;
+      DisableFeedbackCommands = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
       DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      NoDefaultBookmarks = true;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+    };
 
-      # Enable spell checking
-      SpellcheckLanguages = [
-        "en-US"
-        "fr"
-        "es-ES"
-      ];
+    profiles.default = {
+      isDefault = true;
+
+      extensions.packages = (with addons; [
+        onepassword-password-manager
+        darkreader
+        ublock-origin
+        vimium
+        react-devtools
+        tab-session-manager
+      ]) ++ [ prod ];
+
+      search = {
+        default = "google";
+        force = true;
+        engines = {
+          bing.metaData.hidden = true;
+          amazon.metaData.hidden = true;
+          ebay.metaData.hidden = true;
+        };
+      };
+
+      settings = {
+        # Restore previous session on startup
+        "browser.startup.page" = 3;
+
+        # Spell check
+        "spellchecker.dictionary" = "en-US,fr,es-ES";
+        "layout.spellcheckDefault" = 1;
+
+        # Language settings
+        "intl.accept_languages" = "en-US,en,fr,es";
+
+        # Dark mode
+        "ui.systemUsesDarkTheme" = 1;
+        "browser.theme.content-theme" = 0;
+        "browser.theme.toolbar-theme" = 0;
+
+        # Performance - memory saver equivalent
+        "browser.tabs.unloadOnLowMemory" = true;
+
+        # Disable password saving
+        "signon.rememberSignons" = false;
+        "signon.autofillForms" = false;
+
+        # Disable credit card autofill
+        "extensions.formautofill.creditCards.enabled" = false;
+
+        # Home button disabled
+        "browser.showHomeButton" = false;
+
+        # Translation - never translate French or Spanish
+        "browser.translations.neverTranslateLanguages" = "fr,es";
+
+        # Hardware acceleration
+        "gfx.webrender.all" = true;
+        "layers.acceleration.force-enabled" = true;
+      };
     };
   };
-
-  # User preferences (user.js equivalent)
-  # These go in the profile directory
-  home.file.".zen/default/user.js".text = ''
-    // Generated by NixOS home-manager
-
-    // Spell check
-    user_pref("spellchecker.dictionary", "en-US,fr,es-ES");
-    user_pref("layout.spellcheckDefault", 1);
-
-    // Language settings
-    user_pref("intl.accept_languages", "en-US,en,fr,es");
-
-    // Dark mode
-    user_pref("ui.systemUsesDarkTheme", 1);
-    user_pref("browser.theme.content-theme", 0);
-    user_pref("browser.theme.toolbar-theme", 0);
-
-    // Performance - memory saver equivalent
-    user_pref("browser.tabs.unloadOnLowMemory", true);
-
-    // Disable password saving
-    user_pref("signon.rememberSignons", false);
-    user_pref("signon.autofillForms", false);
-
-    // Disable credit card autofill
-    user_pref("extensions.formautofill.creditCards.enabled", false);
-
-    // Home button disabled (Zen has its own UI)
-    user_pref("browser.showHomeButton", false);
-
-    // Search engine
-    user_pref("browser.search.defaultenginename", "Google");
-
-    // New tab on startup
-    user_pref("browser.startup.page", 1);
-    user_pref("browser.startup.homepage", "about:newtab");
-
-    // Translation - never translate French or Spanish
-    user_pref("browser.translations.neverTranslateLanguages", "fr,es");
-
-    // Hardware acceleration
-    user_pref("gfx.webrender.all", true);
-    user_pref("layers.acceleration.force-enabled", true);
-
-    // Accessibility - clipboard confirmation
-    user_pref("accessibility.typeaheadfind.flashBar", 1);
-
-    // Font size (medium = default)
-    user_pref("font.size.variable.x-western", 16);
-
-    // Zoom (100% default)
-    user_pref("browser.zoom.siteSpecific", true);
-    user_pref("browser.zoom.full", true);
-  '';
 }
