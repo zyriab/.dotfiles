@@ -17,6 +17,7 @@
     ../../modules/home/chromium.nix
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
+    ../../modules/home/cursor.nix
   ];
 
   home.username = "zyr";
