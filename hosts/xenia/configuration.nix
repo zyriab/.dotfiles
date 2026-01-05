@@ -66,7 +66,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd hyprland > /dev/null";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd 'hyprland > /dev/null 2>&1'";
         user = "greeter";
       };
     };
