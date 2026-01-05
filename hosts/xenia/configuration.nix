@@ -21,6 +21,9 @@
   # Suppress kernel messages on console (fixes tuigreet UI)
   boot.consoleLogLevel = 0;
 
+  # Boot menu timeout (seconds) for generation selection
+  boot.loader.timeout = 5;
+
   networking.hostName = "xenia";
   networking.networkmanager.enable = true;
 
