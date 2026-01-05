@@ -334,19 +334,15 @@
         };
 
         # Window rules
-        windowrulev2 = [
+        windowrule = [
           # Floating terminal
-          "float, class:^(com\\.mitchellh\\.ghostty)$, title:^(scratch_term)$"
+          "float on, match:class com\\.mitchellh\\.ghostty, match:title scratch_term"
           # Floating Blueman
-          "float, class:^(\\.blueman-manager-wrapped)$"
+          "float on, match:class \\.blueman-manager-wrapped"
           # Floating pwvucontrol
-          "float, class:^(com.saivert.pwvucontrol)$"
+          "float on, match:class com\\.saivert\\.pwvucontrol"
           # Floating calculator
-          "float, class:^(org\\.gnome\\.Calculator)$"
-          # Suppress maximize events for all windows
-          "suppressevent maximize, class:.*"
-          # Don't focus empty XWayland floating windows (prevents focus on invisible windows)
-          "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+          "float on, match:class org\\.gnome\\.Calculator"
         ];
 
         # Keybindings
