@@ -1,5 +1,43 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  wifi-menu = pkgs.writeShellScriptBin "wifi-menu" ''
+    STATUS=$(nmcli radio wifi)
+    if [ "$STATUS" = "enabled" ]; then
+      TOGGLE="󰖪  Disable WiFi"
+    else
+      TOGGLE="󰖩  Enable WiFi"
+    fi
+
+    CHOICE=$(printf "%s\n󱛃  Select Network\n󰒓  Open Settings" "$TOGGLE" | fuzzel --dmenu -p "WiFi: ")
+
+    case "$CHOICE" in
+      *"Disable WiFi"*) nmcli radio wifi off ;;
+      *"Enable WiFi"*) nmcli radio wifi on ;;
+      *"Select Network"*) nm-connection-editor ;;
+      *"Open Settings"*) nm-connection-editor ;;
+    esac
+  '';
+
+  bluetooth-menu = pkgs.writeShellScriptBin "bluetooth-menu" ''
+    STATUS=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
+    if [ "$STATUS" = "yes" ]; then
+      TOGGLE="󰂲  Disable Bluetooth"
+    else
+      TOGGLE="󰂯  Enable Bluetooth"
+    fi
+
+    CHOICE=$(printf "%s\n󰂱  Connect Device\n󰒓  Open Settings" "$TOGGLE" | fuzzel --dmenu -p "Bluetooth: ")
+
+    case "$CHOICE" in
+      *"Disable Bluetooth"*) bluetoothctl power off ;;
+      *"Enable Bluetooth"*) bluetoothctl power on ;;
+      *"Connect Device"*) blueman-manager ;;
+      *"Open Settings"*) blueman-manager ;;
+    esac
+  '';
+in
 {
+  home.packages = [ wifi-menu bluetooth-menu ];
   programs.waybar = {
     enable = true;
     systemd = {
@@ -131,7 +169,7 @@
           format-disconnected = "󰖪 Disconnected";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
           tooltip-format-wifi = "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}/{cidr}";
-          on-click = "nm-connection-editor";
+          on-click = "wifi-menu";
         };
 
         bluetooth = {
@@ -142,7 +180,7 @@
           tooltip-format = "{controller_alias}\t{controller_address}";
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-          on-click = "blueman-manager";
+          on-click = "bluetooth-menu";
         };
 
         battery = {
@@ -177,7 +215,7 @@
 
         "custom/power" = {
           tooltip = false;
-          on-click = "wlogout -p layer-shell &";
+          on-click = "wlogout";
           format = "⏻";
         };
 

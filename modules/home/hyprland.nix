@@ -181,6 +181,8 @@
 
     # Fallback term if system is FUBAR
     kitty
+    wlogout
+    networkmanagerapplet
   ];
 
   wayland.windowManager.hyprland = {
