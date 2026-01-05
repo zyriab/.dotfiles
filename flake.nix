@@ -41,6 +41,13 @@
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    # Firefox addons (for Zen extensions)
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -48,22 +55,27 @@
     { nixpkgs, ... }@inputs:
     {
       # Framework 16 AMD (basil)
-      nixosConfigurations.basil = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          pkgs-kernel = import inputs.nixpkgs-kernel {
-            system = "x86_64-linux";
+      nixosConfigurations.basil =
+        let
+          system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
           };
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+            pkgs-kernel = import inputs.nixpkgs-kernel { inherit system; };
+            firefox-addons = pkgs.callPackage inputs.firefox-addons { };
+          };
+          modules = [
+            ./hosts/basil/configuration.nix
+            inputs.home-manager.nixosModules.default
+            { nixpkgs.config.allowUnfree = true; }
+          ];
         };
-        modules = [
-          ./hosts/basil/configuration.nix
-          inputs.home-manager.nixosModules.default
-          {
-            nixpkgs.config.allowUnfree = true;
-          }
-        ];
-      };
 
       # uConsole CM4 (xenia)
       nixosConfigurations.xenia = inputs.nixos-uconsole.lib.mkUConsoleSystem {
