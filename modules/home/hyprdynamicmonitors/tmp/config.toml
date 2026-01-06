@@ -1,7 +1,7 @@
 
 
 [profiles.Desk_mono]
-config_file = "/home/zyr/.dotfiles/modules/home/hyprdynamicmonitors/hyprconfigs/Desk_mono.go.tmpl"
+config_file = "/home/zyr/.dotfiles/modules/home/hyprdynamicmonitors/tmp/hyprconfigs/Desk_mono.go.tmpl"
 config_file_type = "template"
 [profiles.Desk_mono.conditions]
 
