@@ -1,4 +1,10 @@
-{ inputs, pkgs, lib, firefox-addons, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  firefox-addons,
+  ...
+}:
 let
   addons = firefox-addons;
 
@@ -55,14 +61,16 @@ in
     profiles.default = {
       isDefault = true;
 
-      extensions.packages = (with addons; [
-        onepassword-password-manager
-        darkreader
-        ublock-origin
-        vimium
-        react-devtools
-        tab-session-manager
-      ]) ++ [ prod ];
+      extensions.packages =
+        (with addons; [
+          onepassword-password-manager
+          darkreader
+          ublock-origin
+          vimium
+          react-devtools
+          tab-session-manager
+        ])
+        ++ [ prod ];
 
       search = {
         default = "google";

@@ -37,7 +37,10 @@ let
   '';
 in
 {
-  home.packages = [ wifi-menu bluetooth-menu ];
+  home.packages = [
+    wifi-menu
+    bluetooth-menu
+  ];
   programs.waybar = {
     enable = true;
     systemd = {
