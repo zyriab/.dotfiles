@@ -12,6 +12,7 @@
 
     # Work
     slack
+    zoom-us
 
     # Media
     spotify
