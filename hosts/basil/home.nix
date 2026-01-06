@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -18,6 +18,7 @@
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
+    inputs.hyprdynamicmonitors.homeManagerModules.default
   ];
 
   home.username = "zyr";
