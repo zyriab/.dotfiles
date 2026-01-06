@@ -139,7 +139,9 @@
   };
 
   # Initial monitors.conf for hyprdynamicmonitors
+  # force = true allows hyprdynamicmonitors daemon to overwrite this file
   xdg.configFile."hypr/monitors.conf" = {
+    force = true;
     text = ''
       monitor = eDP-2, 2560x1600@165, 0x0, 1.6
     '';
