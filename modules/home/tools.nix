@@ -35,5 +35,6 @@
     lazydocker
     gparted
     parted
+    radeontop
   ];
 }
