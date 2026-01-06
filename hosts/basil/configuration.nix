@@ -94,19 +94,23 @@
     };
   };
 
-  security.sudo.extraRules = [
-    {
-      users = [ "zyr" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [
-            "SETENV"
-          ];
-        }
-      ];
-    }
-  ];
+  security = {
+    polkit.enable = true;
+
+    sudo.extraRules = [
+      {
+        users = [ "zyr" ];
+        commands = [
+          {
+            command = "ALL";
+            options = [
+              "SETENV"
+            ];
+          }
+        ];
+      }
+    ];
+  };
 
   virtualisation.docker = {
     enable = false;
@@ -129,8 +133,7 @@
     enable = true;
     settings = {
       default_session = {
-        # command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland > /dev/null";
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd 'start-hyprland > /dev/null 2>&1'";
         user = "greeter";
       };
     };
