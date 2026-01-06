@@ -1,8 +1,4 @@
 { ... }:
-let
-  hdmConfigDirPath = ../home/hyprdynamicmonitors;
-  hdmTmpConfigDirPath = ../home/tmp;
-in
 {
   programs.zsh = {
     enable = true;
@@ -17,13 +13,18 @@ in
 
       # See https://hyprdynamicmonitors.filipmikina.com/docs/quickstart/nix#using-the-tui-with-declarative-configuration
       hdm = ''
-        cp ${hdmConfigDirPath}/config.toml ${hdmTmpConfigDirPath}/config.toml
-        cp -r  ${hdmConfigDirPath}/hyprconfigs ${hdmTmpConfigDirPath} 
+        HDM_CONFIG_DIR=~/.dotfiles/modules/home/hyprdynamicmonitors
+        mkdir -p $HDM_CONFIG_DIR/tmp
+        cp $HDM_CONFIG_DIR/config.toml $HDM_CONFIG_DIR/tmp/config.toml
+        cp -r $HDM_CONFIG_DIR/hyprconfigs $HDM_CONFIG_DIR/tmp
 
-        hyperdynamicmonitors tui --config ${hdmTmpConfigDirPath}/config.toml
+        hyprdynamicmonitors tui --config $HDM_CONFIG_DIR/tmp/config.toml
 
-        cp ${hdmTmpConfigDirPath}/config.toml ${hdmConfigDirPath}
-        cp -r ${hdmTmpConfigDirPath}/hyprconfigs ${hdmConfigDirPath}
+        cp $HDM_CONFIG_DIR/tmp/config.toml $HDM_CONFIG_DIR
+        cp -r $HDM_CONFIG_DIR/tmp/hyprconfigs $HDM_CONFIG_DIR
+
+        # Fix paths: TUI writes absolute paths to tmp/, replace with actual paths
+        sed -i "s|$HDM_CONFIG_DIR/tmp/|$HDM_CONFIG_DIR/|g" $HDM_CONFIG_DIR/config.toml
       '';
     };
 

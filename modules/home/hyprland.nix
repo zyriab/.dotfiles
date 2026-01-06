@@ -187,6 +187,12 @@
     networkmanagerapplet
   ];
 
+  # hyprdynamicmonitors - automatic monitor configuration
+  home.hyprdynamicmonitors = {
+    enable = true;
+    configFile = "/home/zyr/.dotfiles/modules/home/hyprdynamicmonitors/config.toml";
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -199,13 +205,13 @@
     '';
 
     settings = {
-        # Fallback monitor config (hyprdynamicmonitors overrides via monitors.conf)
-        monitor = [ ", preferred, auto, 1" ];
+      # Fallback monitor config (hyprdynamicmonitors overrides via monitors.conf)
+      monitor = [ ", preferred, auto, 1" ];
 
-        # Force native resolution for games (no scaling for XWayland)
-        xwayland = {
-          force_zero_scaling = true;
-        };
+      # Force native resolution for games (no scaling for XWayland)
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
         # Program variables
         "$terminal" = "ghostty";
