@@ -167,6 +167,23 @@
     };
   };
 
+  systemd.user.services.hyprpolkitagent = {
+    Unit = {
+      Description = "Hyprland Polkit Authentication Agent";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   home.packages = with pkgs; [
     wofi
     waybar
@@ -180,11 +197,13 @@
     libnotify
     hyprpaper
     hyprdim
+    hyprpolkitagent
+
+    wlogout
+    networkmanagerapplet
 
     # Fallback term if system is FUBAR
     kitty
-    wlogout
-    networkmanagerapplet
   ];
 
   # hyprdynamicmonitors - automatic monitor configuration

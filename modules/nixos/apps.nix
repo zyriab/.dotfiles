@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "zyr" ];
+  };
+
   environment.systemPackages = with pkgs; [
     # Notes
     (callPackage ../../pkgs/inkdrop.nix { })
@@ -14,8 +20,6 @@
     discord
 
     # Utilities
-    keepassxc
-    _1password-gui
     obsidian
     libreoffice
     gnome-calculator
