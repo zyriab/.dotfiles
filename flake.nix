@@ -49,6 +49,9 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Dynamic monitor configuration for Hyprland
+    hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
   };
 
   outputs =

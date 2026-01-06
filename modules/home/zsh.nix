@@ -1,4 +1,8 @@
 { ... }:
+let
+  hdmConfigDirPath = ../home/hyprdynamicmonitors;
+  hdmTmpConfigDirPath = ../home/tmp;
+in
 {
   programs.zsh = {
     enable = true;
@@ -10,6 +14,17 @@
       ll = "ls -l";
       lr = "lazydocker";
       cpwd = "pwd | wl-copy";
+
+      # See https://hyprdynamicmonitors.filipmikina.com/docs/quickstart/nix#using-the-tui-with-declarative-configuration
+      hdm = ''
+        cp ${hdmConfigDirPath}/config.toml ${hdmTmpConfigDirPath}/config.toml
+        cp -r  ${hdmConfigDirPath}/hyprconfigs ${hdmTmpConfigDirPath} 
+
+        hyperdynamicmonitors tui --config ${hdmTmpConfigDirPath}/config.toml
+
+        cp ${hdmTmpConfigDirPath}/config.toml ${hdmConfigDirPath}
+        cp -r ${hdmTmpConfigDirPath}/hyprconfigs ${hdmConfigDirPath}
+      '';
     };
 
     autosuggestion.enable = true;
