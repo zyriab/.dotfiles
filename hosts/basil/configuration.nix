@@ -15,6 +15,7 @@
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/browsers.nix
+    ../../modules/nixos/security.nix
     inputs.xremap.nixosModules.default
   ];
 
@@ -97,23 +98,6 @@
     };
   };
 
-  security = {
-    polkit.enable = true;
-
-    sudo.extraRules = [
-      {
-        users = [ "zyr" ];
-        commands = [
-          {
-            command = "ALL";
-            options = [
-              "SETENV"
-            ];
-          }
-        ];
-      }
-    ];
-  };
 
   virtualisation.docker = {
     enable = false;
@@ -142,12 +126,7 @@
     };
   };
 
-  # Fingerprint reader
-  services.fprintd.enable = true;
-
-  # Allow both password and fingerprint for sudo
-
-  # Firwmare update
+  # Firmware update
   services.fwupd.enable = true;
 
   # Power management
