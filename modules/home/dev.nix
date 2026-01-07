@@ -40,6 +40,7 @@ in
       # Nix
       nixd
       nixfmt-rfc-style
+      nixfmt-tree
       nix-search-cli
 
       # Networking/tunnels/VPS
