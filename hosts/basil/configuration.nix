@@ -88,7 +88,10 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs firefox-addons; };
+    extraSpecialArgs = {
+      inherit inputs firefox-addons;
+      crushModule = pkgs.nur.repos.charmbracelet.modules.homeManager.crush;
+    };
     users = {
       "zyr" = import ./home.nix;
     };

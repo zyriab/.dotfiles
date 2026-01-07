@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, crushModule, ... }:
 
 {
   imports = [
@@ -19,6 +19,7 @@
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
     inputs.hyprdynamicmonitors.homeManagerModules.default
+    crushModule
   ];
 
   home.username = "zyr";
