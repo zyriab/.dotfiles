@@ -132,7 +132,7 @@
       ''
         splash = false
         wallpaper {
-          monitor = eDP-2
+          monitor =
           path = ${wallpaper}
         }
       '';
