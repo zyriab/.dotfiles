@@ -127,7 +127,7 @@
     force = true;
     text =
       let
-        wallpaper = "/mnt/data/Pictures/Wallpapers/snowy-canopy.jpg";
+        wallpaper = "/mnt/data/Pictures/Wallpapers/gray-mountains.jpg";
       in
       ''
         splash = false
