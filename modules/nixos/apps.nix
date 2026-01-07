@@ -25,7 +25,5 @@
     libreoffice
     gnome-calculator
     nautilus
-
-    (callPackage ../../pkgs/dbeaver-patched.nix { inherit pkgs; })
   ];
 }

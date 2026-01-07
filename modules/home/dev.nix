@@ -45,6 +45,15 @@ in
       # Networking/tunnels/VPS
       cloudflared
       hcloud
+
+      # IDEs
+      (jetbrains.datagrip.override {
+        vmopts = ''
+          -Dsun.java2d.uiScale=2.0
+          -Dawt.toolkit.name=WLToolkit
+        '';
+      })
+
     ]
     # x86-only packages
     ++ lib.optionals isX86 [
