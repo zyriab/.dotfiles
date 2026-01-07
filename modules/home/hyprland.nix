@@ -209,7 +209,10 @@
   # hyprdynamicmonitors - automatic monitor configuration
   home.hyprdynamicmonitors = {
     enable = true;
-    configFile = "/home/zyr/.dotfiles/modules/home/hyprdynamicmonitors/config.toml";
+    configPath = "/home/zyr/.dotfiles/modules/home/hyprdynamicmonitors/config.toml";
+    config = null;
+    configFile = null;
+    installExamples = false;
   };
 
   wayland.windowManager.hyprland = {
