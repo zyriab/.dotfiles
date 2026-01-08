@@ -6,7 +6,7 @@
       font-family = "FiraMono Nerd Font Mono";
       font-size = 9;
       theme = "GitHub Dark Colorblind";
-      background-opacity = 0.9;
+      # background-opacity = 0.9;
       unfocused-split-opacity = 0.8;
       mouse-hide-while-typing = true;
       cursor-invert-fg-bg = true;
