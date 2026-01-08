@@ -68,7 +68,7 @@ in
 
       # Nix
       nixd
-      nixfmt-rfc-style
+      nixfmt
       nixfmt-tree
       nix-search-cli
 
