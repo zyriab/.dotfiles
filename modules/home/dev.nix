@@ -79,7 +79,7 @@ in
       # IDEs
       (jetbrains.datagrip.override {
         vmopts = ''
-          -Dsun.java2d.uiScale=2.0
+          -Dsun.java2d.uiScale=1.8
           -Dawt.toolkit.name=WLToolkit
         '';
       })
