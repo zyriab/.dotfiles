@@ -49,6 +49,10 @@ in
       bind C-p previous-window
       bind C-n next-window
 
+      # Switching current window position
+      bind h swap-window -t -1 \;  previous-window
+      bind l swap-window -t +1 \; next-window
+
       set -g status-right '#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} #{battery_remain} | %a %h-%d %H:%M'
 
       # Increasing messages display from 750ms to 4s
