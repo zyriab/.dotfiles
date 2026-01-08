@@ -18,6 +18,11 @@
 
   services.fprintd.enable = true;
 
+  # Allow password OR fingerprint for greetd (not fingerprint only)
+  security.pam.services.greetd = {
+    enableGnomeKeyring = true;
+    fprintAuth = false;
+  };
+
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
 }
