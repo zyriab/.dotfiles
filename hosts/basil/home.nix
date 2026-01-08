@@ -20,6 +20,7 @@
     ../../modules/home/cursor.nix
     inputs.hyprdynamicmonitors.homeManagerModules.default
     crushModule
+    ../../modules/home/crush.nix
   ];
 
   home.username = "zyr";
