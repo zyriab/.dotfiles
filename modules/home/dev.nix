@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }:
 let
@@ -10,7 +11,7 @@ in
 {
   programs.go.enable = true;
 
-  programs.crush = {
+  programs.crush = lib.mkIf (config.programs ? crush) {
     enable = true;
     settings = {
       lsp = {

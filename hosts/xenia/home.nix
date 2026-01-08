@@ -1,4 +1,7 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -14,7 +17,6 @@
     ../../modules/home/chromium.nix
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
-    inputs.crushModule
     # Custom hyprland config for uConsole
     ./hyprland.nix
   ];
