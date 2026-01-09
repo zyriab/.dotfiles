@@ -51,11 +51,6 @@
     # Dynamic monitor configuration for Hyprland
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
 
-    crush = {
-      url = "github:zyriab/crush/feat/add-nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     opencode = {
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,7 +75,6 @@
             inherit inputs;
             pkgs-kernel = import inputs.nixpkgs-kernel { inherit system; };
             firefox-addons = pkgs.callPackage inputs.firefox-addons { };
-            crushModule = inputs.crush.homeManagerModules.default;
           };
           modules = [
             ./hosts/basil/configuration.nix

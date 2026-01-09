@@ -18,10 +18,7 @@
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
-    ../../modules/home/crush.nix
-    ../../modules/home/opencode.nix
     inputs.hyprdynamicmonitors.homeManagerModules.default
-    inputs.crush.homeManagerModules.default
   ];
 
   home.username = "zyr";
