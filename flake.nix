@@ -26,8 +26,6 @@
     # Always up-to-date Claude Code ;)
     claude-code.url = "github:sadjow/claude-code-nix";
 
-    opencode.url = "github:aodhanhayter/opencode-flake";
-
     # xremap for mouse/keyboard remapping
     xremap.url = "github:xremap/nix-flake";
 
@@ -55,6 +53,11 @@
 
     crush = {
       url = "github:zyriab/crush/feat/add-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    opencode = {
+      url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

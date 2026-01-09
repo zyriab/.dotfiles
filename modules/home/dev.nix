@@ -58,7 +58,6 @@ in
     ]
     # x86-only packages
     ++ lib.optionals isX86 [
-      inputs.opencode.packages.${stdenv.hostPlatform.system}.default
       postman
       ngrok
     ];
