@@ -1,4 +1,4 @@
-{ inputs, crushModule, ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -18,9 +18,9 @@
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
-    inputs.hyprdynamicmonitors.homeManagerModules.default
-    crushModule
     ../../modules/home/crush.nix
+    inputs.hyprdynamicmonitors.homeManagerModules.default
+    inputs.crush.homeManagerModules.default
   ];
 
   home.username = "zyr";
@@ -28,7 +28,10 @@
 
   home.stateVersion = "25.11";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = _: true;
+  };
 
   home.packages = [ ];
 

@@ -89,10 +89,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = {
-      inherit inputs firefox-addons;
-      crushModule = inputs.crush.homeManagerModules.default;
-    };
+    extraSpecialArgs = { inherit inputs firefox-addons; };
     users = {
       "zyr" = import ./home.nix;
     };
