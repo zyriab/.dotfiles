@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   anthropic-api-key = pkgs.callPackage ../../pkgs/anthropic-api-key.nix { };
 
