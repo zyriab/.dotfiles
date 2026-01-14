@@ -36,5 +36,6 @@
     gparted
     parted
     radeontop
+    ffmpeg
   ];
 }
