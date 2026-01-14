@@ -15,7 +15,6 @@ in
     [
       # CLI tools
       inputs.claude-code.packages.${stdenv.hostPlatform.system}.default
-      inputs.opencode.packages.${stdenv.hostPlatform.system}.default
       cloc
 
       # Languages & runtimes
