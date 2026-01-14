@@ -15,7 +15,7 @@ in
     };
     includes = [
       {
-        condition = "gitdir:~/dev/freelance/sponsor-cx/";
+        condition = "gitdir:/mnt/data/dev/freelance/sponsor-cx/";
         contents = {
           user = {
             name = "Arthur Wallendorff";
