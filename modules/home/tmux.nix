@@ -45,6 +45,9 @@ in
     clock24 = true;
 
     extraConfig = ''
+      # Send Ctrl+Space to pane when pressed twice (for nvim autocomplete)
+      bind C-Space send-keys C-Space
+
       # Easier and faster switching between next/prev window
       bind C-p previous-window
       bind C-n next-window
