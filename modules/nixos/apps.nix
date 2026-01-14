@@ -19,6 +19,7 @@
     vlc
     deluge
     discord
+    obs-studio
 
     # Utilities
     obsidian
