@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../modules/home/desktop.nix
     ../../modules/home/git.nix
     ../../modules/home/zsh.nix
     ../../modules/home/neovim.nix
@@ -18,6 +19,7 @@
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
     ../../modules/home/cursor.nix
+    ../../modules/home/opencode.nix
     inputs.hyprdynamicmonitors.homeManagerModules.default
   ];
 
