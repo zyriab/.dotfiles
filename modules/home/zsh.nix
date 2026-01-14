@@ -6,7 +6,7 @@
     shellAliases = {
       ned = "nvim ~/.dotfiles/";
       nrb = "echo \":: Rebuilding NixOS configuration for $(hostname)...\" && sudo nixos-rebuild switch --flake ~/.dotfiles#$(hostname)";
-      nrbu = "nix flake update nixpkgs && nrb";
+      nrbu = "echo \"::Updating flake inputs...\" && sudo nix flake update && nrb";
       ll = "ls -l";
       lr = "lazydocker";
       cpwd = "pwd | wl-copy";
