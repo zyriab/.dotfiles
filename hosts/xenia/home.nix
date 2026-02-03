@@ -12,7 +12,6 @@
     ../../modules/home/tmux.nix
     ../../modules/home/fuzzel.nix
     ../../modules/home/dev.nix
-    ../../modules/home/claude-code.nix
     ../../modules/home/automount.nix
     ../../modules/home/chromium.nix
     ../../modules/home/electron-wayland-fixes.nix

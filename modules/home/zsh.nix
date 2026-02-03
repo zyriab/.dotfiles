@@ -6,7 +6,7 @@
     shellAliases = {
       ned = "nvim ~/.dotfiles/";
       nrb = "echo \":: Rebuilding NixOS configuration for $(hostname)...\" && sudo nixos-rebuild switch --flake ~/.dotfiles#$(hostname)";
-      nrbu = "echo \"::Updating flake inputs...\" && sudo nix flake update && nrb";
+      nrbu = "echo \"::Updating flake inputs...\" && sudo nix flake update --flake ~/.dotfiles && nrb";
       ll = "ls -l";
       lr = "lazydocker";
       cpwd = "pwd | wl-copy";
@@ -32,20 +32,17 @@
     syntaxHighlighting.enable = true;
 
     initContent = ''
-      # Set default gh account on shell start
-      gh auth switch --user zyriab 2>/dev/null
+        # Set default gh account on shell start
+        gh auth switch --user zyriab 2>/dev/null
 
-      # Switch back to personal gh account when leaving sponsor-cx
-      chpwd() {
-        if [[ "$OLDPWD" == *"sponsor-cx"* && "$PWD" != *"sponsor-cx"* ]]; then
-          gh auth switch --user zyriab 2>/dev/null
-        fi
-      }
+        # Switch back to personal gh account when leaving sponsor-cx
+        chpwd() {
+          if [[ "$OLDPWD" == *"sponsor-cx"* && "$PWD" != *"sponsor-cx"* ]]; then
+            gh auth switch --user zyriab 2>/dev/null
+          fi
+        }
 
-      # Conditionally initialize zoxide (disabled in Claude Code)
-      if [[ -z "$CLAUDECODE" ]]; then
-        eval "$(zoxide init --cmd cd zsh)"
-      fi
+      eval "$(zoxide init --cmd cd zsh)"
     '';
 
     oh-my-zsh = {

@@ -13,29 +13,32 @@
     ../../modules/home/waybar.nix
     ../../modules/home/hyprland.nix
     ../../modules/home/fuzzel.nix
-    ../../modules/home/claude-code.nix
     ../../modules/home/automount.nix
     ../../modules/home/chromium.nix
     ../../modules/home/zen-browser.nix
     ../../modules/home/electron-wayland-fixes.nix
-    ../../modules/home/cursor.nix
-    ../../modules/home/opencode.nix
+    ../../modules/home/gtk.nix
+    ../../modules/home/crush.nix
     inputs.hyprdynamicmonitors.homeManagerModules.default
   ];
 
-  home.username = "zyr";
-  home.homeDirectory = "/home/zyr";
+  home = {
+    username = "zyr";
+    homeDirectory = "/home/zyr";
 
-  home.stateVersion = "25.11";
+    packages = [ ];
+
+    file = { };
+
+    sessionVariables = { };
+
+    stateVersion = "25.11";
+  };
 
   nixpkgs.config = {
     allowUnfree = true;
     allowUnfreePredicate = _: true;
   };
-
-  home.packages = [ ];
-
-  home.file = { };
 
   programs = {
     home-manager.enable = true;
