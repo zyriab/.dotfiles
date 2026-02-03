@@ -23,9 +23,6 @@
     #   inputs.hyprland.follows = "hyprland";
     # };
 
-    # Always up-to-date Claude Code ;)
-    claude-code.url = "github:sadjow/claude-code-nix";
-
     # xremap for mouse/keyboard remapping
     xremap.url = "github:xremap/nix-flake";
 
@@ -51,14 +48,12 @@
     # Dynamic monitor configuration for Hyprland
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
 
-    opencode = {
-      url = "github:anomalyco/opencode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # NUR for Charm/Crush and more
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { nixpkgs, nur, ... }@inputs:
     {
       # Framework 16 AMD (basil)
       nixosConfigurations.basil =
@@ -66,6 +61,7 @@
           system = "x86_64-linux";
           pkgs = import nixpkgs {
             inherit system;
+            overlays = [ nur.overlays.default ];
             config.allowUnfree = true;
           };
         in
@@ -80,6 +76,8 @@
             ./hosts/basil/configuration.nix
             inputs.home-manager.nixosModules.default
             { nixpkgs.config.allowUnfree = true; }
+
+            { environment.systemPackages = [ pkgs.nur.repos.charmbracelet.crush ]; }
           ];
         };
 
