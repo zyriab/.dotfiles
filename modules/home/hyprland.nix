@@ -390,6 +390,9 @@
         "$mainMod, C, exec, $calculator"
         "$mainMod, N, exec, $notes"
 
+        # Hyprshade toggle
+        "$mainMod SHIFT, S, exec, hyprshade-toggle"
+
         # Window management
         "$mainMod, Q, killactive"
         "$SUPER_ALT SHIFT, L, exit"
