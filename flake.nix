@@ -27,7 +27,7 @@
     xremap.url = "github:xremap/nix-flake";
 
     # uConsole (xenia) support
-    nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
+    nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole/feat/uc-sleep-go-rewrite";
 
     # Hardware-specific configurations
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -50,6 +50,12 @@
 
     # NUR for Charm/Crush and more
     nur.url = "github:nix-community/NUR";
+
+    # Disko for declarative disk partitioning
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -96,6 +102,7 @@
         system = "aarch64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          inputs.disko.nixosModules.disko
           ./hosts/germain/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
