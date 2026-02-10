@@ -85,7 +85,7 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "prohibit-password";
+      PermitRootLogin = lib.mkForce 50 "prohibit-password";
       PasswordAuthentication = true;
     };
   };
