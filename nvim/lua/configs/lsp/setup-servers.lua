@@ -190,11 +190,6 @@ local servers = {
         init_options = { includeLanguages = { templ = "html" } },
     },
 
-    templ = {
-        cmd = { "templ", "lsp", "-log", vim.fn.stdpath("cache") .. "/templ.log" },
-        filetypes = { filetypes.templ },
-    },
-
     ts_ls = {
         implicitProjectConfiguration = {
             checkJs = true,
@@ -221,6 +216,11 @@ local servers = {
 -- Most likely manually installed on the system.
 local external_servers = {
     nixd = {}, -- https://github.com/nix-community/nixd/blob/main/nixd/docs/editor-setup.md
+
+    templ = {
+        cmd = { "templ", "lsp", "-log", vim.fn.stdpath("cache") .. "/templ.log" },
+        filetypes = { filetypes.templ },
+    },
 
     clangd = {
         cmd = {

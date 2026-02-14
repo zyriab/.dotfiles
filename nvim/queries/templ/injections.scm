@@ -1,5 +1,4 @@
 ;; extends
-; inherits: html
 
 ; _hyperscript attribute in Go's `fmt.Sprintf` (quotes)
 (attribute

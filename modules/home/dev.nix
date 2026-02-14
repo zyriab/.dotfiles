@@ -31,6 +31,9 @@ in
       stylua
       prettierd
 
+      # Go tooling
+      templ
+
       # Nix
       nixd
       nixfmt
