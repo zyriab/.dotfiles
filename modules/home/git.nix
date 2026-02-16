@@ -13,7 +13,7 @@ in
     settings = {
       user = {
         name = "Arthur Wallendorff";
-        email = secrets.personalEmail;
+        email = secrets.email;
       };
       core.editor = "nvim";
       init.defaultBranch = "master";
@@ -69,18 +69,6 @@ in
       merge.conflictstyle = "diff3";
       diff.colorMoved = "default";
     };
-
-    includes = [
-      {
-        condition = "gitdir:/mnt/data/dev/freelance/sponsor-cx/";
-        contents = {
-          user = {
-            name = "Arthur Wallendorff";
-            email = secrets.workEmail;
-          };
-        };
-      }
-    ];
   };
 
   programs.lazygit = {
