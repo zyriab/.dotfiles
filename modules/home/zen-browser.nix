@@ -18,9 +18,6 @@ in
 {
   imports = [ inputs.zen-browser.homeModules.beta ];
 
-  # Force overwrite existing profiles.ini
-  home.file.".zen/profiles.ini".force = true;
-
   # Add zen to 1Password allowed browsers: echo "zen" | sudo tee -a /etc/1password/custom_allowed_browsers
   programs.zen-browser = {
     enable = true;
