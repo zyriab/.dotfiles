@@ -90,6 +90,8 @@
     };
   };
 
+  services.tailscale.enable = true;
+
   console = {
     earlySetup = true;
     font = "ter-v24n";

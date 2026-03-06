@@ -183,6 +183,10 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  services.tailscale.enable = true;
+
   system.stateVersion = "25.11";
 
 }
