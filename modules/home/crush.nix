@@ -1,14 +1,7 @@
 { pkgs, ... }:
 let
-  # Wrapper script to proxy Linear MCP via stdio, reading API key from env
-  linear-mcp = pkgs.writeShellScriptBin "linear-mcp" ''
-    if [ -z "$LINEAR_API_KEY" ]; then
-      echo "ERROR: LINEAR_API_KEY not set" >&2
-      exit 1
-    fi
-    exec ${pkgs.mcp-proxy}/bin/mcp-proxy \
-      --headers Authorization "Bearer $LINEAR_API_KEY" \
-      https://mcp.linear.app/sse
+  mcp-remote = pkgs.writeShellScriptBin "mcp-remote" ''
+    exec ${pkgs.nodejs}/bin/npx -y mcp-remote@latest "$@"
   '';
 in
 {
@@ -68,11 +61,11 @@ in
     };
 
     # MCP (Model Context Protocol) servers
-    # Linear requires LINEAR_API_KEY env var - set per-project in flake.nix
     mcp = {
       linear = {
         type = "stdio";
-        command = "${linear-mcp}/bin/linear-mcp";
+        command = "${mcp-remote}/bin/mcp-remote";
+        args = [ "https://mcp.linear.app/mcp" ];
       };
     };
 
@@ -138,8 +131,8 @@ in
     # htmx
     htmx-lsp
 
-    # MCP proxy (for Linear)
-    mcp-proxy
+    # MCP remote (for Linear OAuth)
+    mcp-remote
 
     # Bash
     nodePackages.bash-language-server
