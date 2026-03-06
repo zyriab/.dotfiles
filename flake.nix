@@ -67,7 +67,10 @@
           system = "x86_64-linux";
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [ nur.overlays.default ];
+            overlays = [
+              nur.overlays.default
+              inputs.firefox-addons.overlays.default
+            ];
             config.allowUnfree = true;
           };
         in
@@ -76,7 +79,7 @@
           specialArgs = {
             inherit inputs;
             pkgs-kernel = import inputs.nixpkgs-kernel { inherit system; };
-            firefox-addons = pkgs.callPackage inputs.firefox-addons { };
+            firefox-addons = pkgs.firefox-addons;
           };
           modules = [
             ./hosts/basil/configuration.nix
