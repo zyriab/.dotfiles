@@ -27,7 +27,7 @@
     xremap.url = "github:xremap/nix-flake";
 
     # uConsole (xenia) support
-    nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole/feat/uc-sleep-go-rewrite";
+    nixos-uconsole.url = "github:wifasoi/nixos-uconsole/fix-python-packaging";
 
     # Hardware-specific configurations
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
