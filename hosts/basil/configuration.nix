@@ -71,8 +71,21 @@
 
   console.useXkbConfig = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplipWithPlugin ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.hplipWithPlugin ];
+  };
 
   # Define a user account.
   users.users.zyr = {
@@ -83,6 +96,8 @@
       "wheel"
       "dialout"
       "video"
+      "lp"
+      "scanner"
     ];
     packages = [ ];
     shell = pkgs.zsh;
@@ -173,6 +188,8 @@
       }
     ];
   };
+
+  programs.ssh.startAgent = false;
 
   # Enable the OpenSSH daemon.
   services.openssh = {
