@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   mcp-remote = pkgs.writeShellScriptBin "mcp-remote" ''
     exec ${pkgs.nodejs}/bin/npx -y mcp-remote@latest "$@"
@@ -19,12 +19,12 @@ in
         disabled = false;
       };
       typescript = {
-        command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+        command = "${pkgs.typescript-language-server}/bin/typescript-language-server";
         args = [ "--stdio" ];
         disabled = false;
       };
       javascript = {
-        command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+        command = "${pkgs.typescript-language-server}/bin/typescript-language-server";
         args = [ "--stdio" ];
         disabled = false;
       };
@@ -54,18 +54,33 @@ in
         disabled = false;
       };
       bash = {
-        command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+        command = "${pkgs.bash-language-server}/bin/bash-language-server";
         args = [ "start" ];
         disabled = false;
       };
     };
 
     # MCP (Model Context Protocol) servers
+    #
+    # Each Linear workspace requires its own OAuth grant. mcp-remote stores
+    # tokens in MCP_REMOTE_CONFIG_DIR (default ~/.mcp-auth), so we point each
+    # workspace at its own directory to keep their auth state separate.
     mcp = {
-      linear = {
+      linear-findleads = {
         type = "stdio";
         command = "${mcp-remote}/bin/mcp-remote";
         args = [ "https://mcp.linear.app/mcp" ];
+        env = {
+          MCP_REMOTE_CONFIG_DIR = "${config.home.homeDirectory}/.mcp-auth/linear-findleads";
+        };
+      };
+      linear-sponsorcx = {
+        type = "stdio";
+        command = "${mcp-remote}/bin/mcp-remote";
+        args = [ "https://mcp.linear.app/mcp" ];
+        env = {
+          MCP_REMOTE_CONFIG_DIR = "${config.home.homeDirectory}/.mcp-auth/linear-sponsorcx";
+        };
       };
     };
 
@@ -110,8 +125,8 @@ in
     gopls
 
     # TypeScript/JavaScript
-    nodePackages.typescript-language-server
-    nodePackages.typescript
+    typescript-language-server
+    typescript
 
     # Nix
     nixd
@@ -135,6 +150,6 @@ in
     mcp-remote
 
     # Bash
-    nodePackages.bash-language-server
+    bash-language-server
   ];
 }
