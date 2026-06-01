@@ -11,6 +11,8 @@
     package = pkgs.mullvad-vpn;
   };
 
+  services.gvfs.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Notes
     (callPackage ../../pkgs/inkdrop.nix { })
@@ -31,5 +33,8 @@
     libreoffice
     gnome-calculator
     nautilus
+
+    # Mount Android phone to filesystem
+    jmtpfs
   ];
 }
