@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
 
   services.hypridle = {
@@ -202,6 +202,8 @@
     wlogout
     networkmanagerapplet
 
+    config.home.hyprdynamicmonitors.package
+
     # Fallback term if system is FUBAR
     kitty
   ];
@@ -217,6 +219,8 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+
+    configType = "hyprlang"; # TODO(hyprland): replace this with Lua
 
     # plugins = [
     #   inputs.split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
@@ -328,7 +332,6 @@
 
       # Layouts
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -400,7 +403,7 @@
         "$mainMod, V, togglefloating"
         "$SUPER_ALT, V, exec, sh -c 'if hyprctl activewindow -j | jq -e \".floating == true\" > /dev/null; then hyprctl dispatch focuswindow tiled; else hyprctl dispatch focuswindow floating; fi'"
         "$mainMod, P, pseudo"
-        "$mainMod, M, togglesplit"
+        "$mainMod, M, layoutmsg, togglesplit"
 
         # Focus movement (arrows)
         "$mainMod, left, movefocus, l"
@@ -515,7 +518,6 @@
           gap_size = 5;
           bg_col = "rgb(111111)";
           workspace_method = "center current";
-          gesture_distance = 300;
         };
       };
     };

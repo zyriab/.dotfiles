@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.pointerCursor = {
     gtk.enable = true;
@@ -10,7 +10,7 @@
   # GTK theme configuration for dark mode
   gtk = {
     enable = true;
-    
+
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
@@ -26,8 +26,11 @@
       gtk-application-prefer-dark-theme = true;
     };
 
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
+    gtk4 = {
+      theme = config.gtk.theme;
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
     };
   };
 
