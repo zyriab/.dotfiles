@@ -110,6 +110,7 @@
   # Remap uConsole gamepad B button (BTN_THUMB2) to LEFTMETA so it acts as
   # SUPER in Hyprland. Toggle with the waybar/xremap "gamepad" mode later.
   services.xremap = {
+    enable = true;
     withWlroots = true;
     userName = "zyr";
     config = {
