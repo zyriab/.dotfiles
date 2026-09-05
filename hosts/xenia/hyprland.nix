@@ -446,8 +446,15 @@
         apply() {
           if hyprctl monitors | grep -q "^Monitor $external "; then
             hyprctl keyword monitor "$external,$external_spec" >/dev/null || true
-            # Mirror the uConsole panel onto HDMI so onboard keyboard/screen
-            # stay usable; DSI-1 keeps its native rotation.
+            # Move any workspaces still bound to the DSI panel onto HDMI so
+            # the terminal, waybar, etc. remain visible after mirroring.
+            hyprctl -j workspaces \
+              | ${pkgs.jq}/bin/jq -r '.[] | select(.monitor=="'"$internal"'") | .id' \
+              | while read -r ws; do
+                  hyprctl dispatch moveworkspacetomonitor "$ws $external" >/dev/null || true
+                done
+            # Mirror the uConsole panel onto HDMI so onboard screen keeps
+            # showing something useful; DSI keeps native rotation.
             hyprctl keyword monitor "$internal,$internal_spec,mirror,$external" >/dev/null || true
           else
             hyprctl keyword monitor "$internal,$internal_spec" >/dev/null || true
