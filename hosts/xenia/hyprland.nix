@@ -455,13 +455,11 @@
         apply
 
         socket="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
-        socat -U - "UNIX-CONNECT:$socket" | while read -r line; do
-          case "$line" in
-            monitoradded>>*|monitorremoved>>*|monitoraddedv2>>*|monitorremovedv2>>*)
-              apply
-              ;;
-          esac
-        done
+        socat -U - "UNIX-CONNECT:$socket" | \
+          grep --line-buffered -E '^monitor(added|removed)(v2)?>>' | \
+          while read -r _line; do
+            apply
+          done
       ''}";
       Restart = "on-failure";
       RestartSec = 3;
