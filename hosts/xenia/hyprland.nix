@@ -128,7 +128,7 @@
       # DSI-1 is auto-disabled by the hypr-monitor-switch systemd user service.
       monitor = [
         "DSI-1,720x1280@60,0x0,1,transform,3"
-        "HDMI-A-1,1920x1080@60,0x0,1"
+        "HDMI-A-1,1920x1080@144,auto,1"
       ];
 
       # Program variables
@@ -441,12 +441,14 @@
         internal="DSI-1"
         external="HDMI-A-1"
         internal_spec="720x1280@60,0x0,1,transform,3"
-        external_spec="1920x1080@60,0x0,1"
+        external_spec="1920x1080@144,0x0,1"
 
         apply() {
           if hyprctl monitors | grep -q "^Monitor $external "; then
-            hyprctl keyword monitor "$internal,disable" >/dev/null || true
             hyprctl keyword monitor "$external,$external_spec" >/dev/null || true
+            # Mirror the uConsole panel onto HDMI so onboard keyboard/screen
+            # stay usable; DSI-1 keeps its native rotation.
+            hyprctl keyword monitor "$internal,$internal_spec,mirror,$external" >/dev/null || true
           else
             hyprctl keyword monitor "$internal,$internal_spec" >/dev/null || true
           fi
