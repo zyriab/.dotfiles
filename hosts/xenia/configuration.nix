@@ -11,6 +11,7 @@
     ../../modules/nixos/audio.nix
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/browsers.nix
+    inputs.xremap.nixosModules.default
   ];
 
   nix.settings.experimental-features = [
@@ -105,6 +106,21 @@
     wirelesstools
     iw
   ];
+
+  # Remap uConsole gamepad B button (BTN_THUMB2) to LEFTMETA so it acts as
+  # SUPER in Hyprland. Toggle with the waybar/xremap "gamepad" mode later.
+  services.xremap = {
+    withWlroots = true;
+    userName = "zyr";
+    config = {
+      modmap = [
+        {
+          name = "uconsole-gamepad-super";
+          remap.BTN_THUMB2 = "KEY_LEFTMETA";
+        }
+      ];
+    };
+  };
 
   system.stateVersion = "25.11";
 }

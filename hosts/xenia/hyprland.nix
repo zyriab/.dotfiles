@@ -135,8 +135,8 @@
       "$terminal" = "foot";
       "$menu" = "fuzzel";
       "$lockscreen" = "hyprlock";
-      # uConsole has no Super key - use Alt as main modifier
-      "$mainMod" = "ALT";
+      # uConsole B button (BTN_THUMB2) is remapped to SUPER via xremap
+      "$mainMod" = "SUPER";
 
       # Autostart
       exec-once = [
