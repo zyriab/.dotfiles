@@ -101,7 +101,10 @@
       in
       {
         preload = [ wallpaper ];
-        wallpaper = [ "DSI-1, ${wallpaper}" ];
+        wallpaper = [
+          "DSI-1, ${wallpaper}"
+          "HDMI-A-1, ${wallpaper}"
+        ];
       };
   };
 
@@ -120,9 +123,12 @@
     enable = true;
 
     settings = {
-      # uConsole display: 720x1280 native, rotated 270° for landscape (right-side up)
+      # uConsole display: 720x1280 native, rotated 270° for landscape (right-side up).
+      # External HDMI (1080p60) becomes the sole active output when connected;
+      # DSI-1 is auto-disabled by the hypr-monitor-switch systemd user service.
       monitor = [
         "DSI-1,720x1280@60,0x0,1,transform,3"
+        "HDMI-A-1,1920x1080@60,0x0,1"
       ];
 
       # Program variables
@@ -409,5 +415,59 @@
         color: #f85149;
       }
     '';
+  };
+
+  # Hotplug switcher: when HDMI is connected, disable the built-in DSI-1
+  # panel entirely (saves battery). When it disconnects, re-enable DSI-1.
+  systemd.user.services.hypr-monitor-switch = {
+    Unit = {
+      Description = "Disable uConsole DSI panel while external HDMI is connected";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.writeShellScript "hypr-monitor-switch" ''
+        set -eu
+        export PATH=${
+          pkgs.lib.makeBinPath [
+            pkgs.hyprland
+            pkgs.coreutils
+            pkgs.gnugrep
+            pkgs.socat
+          ]
+        }:$PATH
+
+        internal="DSI-1"
+        external="HDMI-A-1"
+        internal_spec="720x1280@60,0x0,1,transform,3"
+        external_spec="1920x1080@60,0x0,1"
+
+        apply() {
+          if hyprctl monitors | grep -q "^Monitor $external "; then
+            hyprctl keyword monitor "$internal,disable" >/dev/null || true
+            hyprctl keyword monitor "$external,$external_spec" >/dev/null || true
+          else
+            hyprctl keyword monitor "$internal,$internal_spec" >/dev/null || true
+          fi
+        }
+
+        apply
+
+        socket="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+        socat -U - "UNIX-CONNECT:$socket" | while read -r line; do
+          case "$line" in
+            monitoradded>>*|monitorremoved>>*|monitoraddedv2>>*|monitorremovedv2>>*)
+              apply
+              ;;
+          esac
+        done
+      ''}";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
   };
 }
