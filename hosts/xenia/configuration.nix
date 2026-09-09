@@ -113,6 +113,12 @@
     enable = true;
     withWlroots = true;
     userName = "zyr";
+    # uConsole gamepad is a separate input device that xremap won't pick
+    # automatically because it lacks regular keyboard keys.
+    deviceNames = [
+      "ClockworkPI uConsole Keyboard"
+      "ClockworkPI uConsole"
+    ];
     config = {
       modmap = [
         {
