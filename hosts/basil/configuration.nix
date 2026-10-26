@@ -16,12 +16,18 @@
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/browsers.nix
     ../../modules/nixos/security.nix
+    ../../modules/nixos/framework-charge-limit.nix
     inputs.xremap.nixosModules.default
   ];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+  ];
+
+  nix.settings.trusted-users = [
+    "root"
+    "zyr"
   ];
 
   services.logind.settings.Login = {
@@ -32,7 +38,20 @@
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs-kernel.linuxPackages_6_17;
+  # The pinned older kernel package predates upstream `buildDTBs`/`target`
+  # passthru attrs (added in nixpkgs 226f8c76), which newer nixpkgs reads
+  # for `hardware.deviceTree.enable` and `system.boot.loader.kernelFile`
+  # defaults. Graft them on so the modern module system evaluates.
+  boot.kernelPackages = pkgs-kernel.linuxPackages_6_17.extend (
+    _: prev: {
+      kernel = prev.kernel.overrideAttrs (old: {
+        passthru = old.passthru // {
+          buildDTBs = false;
+          target = "bzImage";
+        };
+      });
+    }
+  );
 
   networking.hostName = "basil";
 
@@ -181,13 +200,10 @@
   services.kmscon = {
     enable = true;
     useXkbConfig = true;
-    fonts = [
-      {
-        name = "Fira Mono";
-        package = pkgs.fira;
-      }
-    ];
+    config.font-name = "Fira Mono";
   };
+
+  fonts.packages = [ pkgs.fira ];
 
   programs.ssh.startAgent = false;
 
