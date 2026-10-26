@@ -74,7 +74,22 @@
   console.useXkbConfig = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+      hplipWithPlugin
+    ];
+  };
+
+  services.ipp-usb.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lab = {
