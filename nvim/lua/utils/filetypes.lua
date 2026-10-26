@@ -28,6 +28,7 @@ return {
     noice = "noice",
     notify = "notify",
     nvimtree = "NvimTree",
+    openscad = "openscad",
     outline = "Outline",
     rust = "rust",
     sql = "sql",
