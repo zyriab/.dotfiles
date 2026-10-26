@@ -1,5 +1,6 @@
 return {
     "hedyhli/outline.nvim",
+    dependencies = { "onsails/lspkind.nvim" },
     config = function()
         local outline = require("outline")
         local is_focused = false
