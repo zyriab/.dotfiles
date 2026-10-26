@@ -1,28 +1,21 @@
-{ modulesPath, ... }:
+{ modulesPath, lib, ... }:
 
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./disko.nix
+  ];
 
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
-    device = "nodev";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3EB9-886F";
-    fsType = "vfat";
-  };
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
+  boot.initrd.kernelModules = [ "virtio_gpu" ];
+  boot.kernelParams = [ "console=tty" ];
 
-  fileSystems."/" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
-  };
-
-  boot.initrd.availableKernelModules = [
-    "ata_piix"
-    "uhci_hcd"
-    "xen_blkfront"
-  ];
-  boot.initrd.kernelModules = [ "nvme" ];
+  networking.useDHCP = lib.mkDefault true;
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

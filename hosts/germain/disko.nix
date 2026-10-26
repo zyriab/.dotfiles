@@ -6,14 +6,18 @@
       content = {
         type = "gpt";
         partitions = {
+          boot = {
+            size = "1M";
+            type = "EF02";
+            priority = 1;
+          };
           ESP = {
             size = "512M";
             type = "EF00";
             content = {
               type = "filesystem";
               format = "vfat";
-              mountpoint = "/boot/efi";
-              mountOptions = [ "fmask=0022" "dmask=0022" ];
+              mountpoint = "/boot";
             };
           };
           root = {

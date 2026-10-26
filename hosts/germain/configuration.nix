@@ -20,8 +20,6 @@
     ];
   };
 
-  boot.initrd.kernelModules = [ "virtio_gpu" ];
-  boot.kernelParams = [ "console=tty" ];
   boot.tmp.cleanOnBoot = true;
 
   zramSwap.enable = true;
@@ -34,6 +32,7 @@
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAShO/JDmlKC2RAVURPnSUpc+EQrj2/C2PrKeHbChkte lab@x1"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkD8JFtguKfrnNtNHDuF0KG69Fx1iUKYjLkmdYqjqVk root@xenia"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4rhQOnn2zOKRvRoLOngL0z6v9OhR5y9neg1AWBI8ki howdy@bytebakers.dev"
   ];
 
   services.openssh = {
@@ -49,18 +48,12 @@
     users.root = import ./home.nix;
   };
 
-  programs.zsh.enable = true;
-  users.users.root.shell = pkgs.zsh;
-
   environment.systemPackages = with pkgs; [
     neovim
-    btop
     git
-    curl
-    ripgrep
     lazygit
+    tmux
     cachix
-    gh
   ];
 
   system.stateVersion = "25.11";
