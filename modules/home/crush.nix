@@ -34,7 +34,7 @@ in
       };
       lua = {
         command = "${pkgs.lua-language-server}/bin/lua-language-server";
-        disabled = false;
+        disabled = true;
       };
       rust = {
         command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
